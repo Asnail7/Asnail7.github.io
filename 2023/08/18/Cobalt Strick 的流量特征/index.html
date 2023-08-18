@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="网络安全 渗透测试 漏洞挖掘 CNVD">
+    <meta name="description" content="A_Snail 的个人博客">
+    <meta name="author" content="A_SNail">
+    
+    <title>
+        
+            Cobalt Strike 流量特征 |
+        
+        A_Snail&#39;s Blog
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    
+        <link rel="shortcut icon" href="https://blog-1254096303.cos.ap-chengdu.myqcloud.com/blog/avatar.jpg">
+    
+    
+<link rel="stylesheet" href="/font/css/fontawesome.min.css">
+
+    
+<link rel="stylesheet" href="/font/css/regular.min.css">
+
+    
+<link rel="stylesheet" href="/font/css/solid.min.css">
+
+    
+<link rel="stylesheet" href="/font/css/brands.min.css">
+
+    
+    <script id="hexo-configurations">
+    let KEEP = window.KEEP || {}
+    KEEP.hexo_config = {"hostname":"example.com","root":"/","language":"zh-CN"}
+    KEEP.theme_config = {"toc":{"enable":false,"number":false,"expand_all":false,"init_open":true,"layout":"right"},"style":{"primary_color":"#1dd1a1","logo":"https://blog-1254096303.cos.ap-chengdu.myqcloud.com/blog/avatar.jpg","favicon":"https://blog-1254096303.cos.ap-chengdu.myqcloud.com/blog/avatar.jpg","avatar":"https://blog-1254096303.cos.ap-chengdu.myqcloud.com/blog/avatar.jpg","first_screen":{"enable":false,"header_transparent":false,"background_img":"/images/bg.svg","description":"Keep writing and Keep loving.","hitokoto":false},"scroll":{"progress_bar":false,"percent":false}},"local_search":{"enable":false,"preload":false},"code_block":{"tools":{"enable":false,"style":"default"},"highlight_theme":"default"},"side_tools":{},"pjax":{"enable":false},"lazyload":{"enable":false},"comment":{"enable":false,"use":"valine","valine":{"appid":null,"appkey":null,"server_urls":null,"placeholder":null},"gitalk":{"github_id":null,"github_admins":null,"repository":null,"client_id":null,"client_secret":null,"proxy":null},"twikoo":{"env_id":null,"region":null,"version":"1.6.8"},"waline":{"server_url":null,"reaction":false,"version":2},"giscus":{"repo":null,"repo_id":null,"category":"Announcements","category_id":null,"reactions_enabled":false}},"post":{"author_label":{"enable":true,"auto":true,"custom_label_list":["Trainee","Engineer","Architect"]},"word_count":{"wordcount":false,"min2read":false},"datetime_format":"YYYY-MM-DD HH:mm:ss","copyright_info":false},"website_count":{"busuanzi_count":{"enable":false,"site_uv":false,"site_pv":false,"page_pv":false}},"version":"3.7.3"}
+    KEEP.language_ago = {"second":"%s 秒前","minute":"%s 分钟前","hour":"%s 小时前","day":"%s 天前","week":"%s 周前","month":"%s 个月前","year":"%s 年前"}
+    KEEP.language_code_block = {"copy":"复制代码","copied":"已复制","fold":"折叠代码块","folded":"已折叠"}
+    KEEP.language_copy_copyright = {"copy":"复制版权信息","copied":"已复制","title":"原文标题","author":"原文作者","link":"原文链接"}
+  </script>
+<meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="A_Snail's Blog" type="application/atom+xml">
+</head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+
+    
+</div>
+
+
+<main class="page-container border-box">
+
+    <!-- home first screen  -->
+    
+
+    <!-- page content -->
+    <div class="page-main-content border-box">
+        <div class="page-main-content-top">
+            
+<header class="header-wrapper">
+
+    <div class="border-box header-content">
+        <div class="left border-box">
+            
+                <a class="logo-image border-box" href="/">
+                    <img src="https://blog-1254096303.cos.ap-chengdu.myqcloud.com/blog/avatar.jpg">
+                </a>
+            
+            <a class="site-name border-box" href="/">
+               A_Snail&#39;s Blog
+            </a>
+        </div>
+
+        <div class="right border-box">
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/"
+                            >
+                                首页
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/archives"
+                            >
+                                归档
+                            </a>
+                        </li>
+                    
+                    
+                </ul>
+            </div>
+            <div class="mobile">
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/">首页</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/archives">归档</a>
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle border-box">
+
+            <div class="main-content border-box">
+
+                
+
+                    <div class="fade-in-down-animation">
+    <div class="post-page-container border-box">
+
+        <div class="article-content-container border-box">
+
+            <div class="article-title">
+                <span class="title-hover-animation">Cobalt Strike 流量特征</span>
+            </div>
+
+            
+                <div class="article-header border-box">
+                    
+                        <div class="avatar-box border-box">
+                            <img src="https://blog-1254096303.cos.ap-chengdu.myqcloud.com/blog/avatar.jpg">
+                        </div>
+                    
+                    <div class="info-box">
+                        <div class="author">
+                            <span class="name">A_SNail</span>
+                            
+                                <span class="author-label">Lv2</span>
+                            
+                        </div>
+                        <div class="meta-info border-box">
+                            
+
+<div class="article-meta-info-container border-box post">
+    <div class="article-meta-info border-box">
+        
+
+
+        
+            <span class="meta-info-item article-create-date">
+                <i class="icon fa-solid fa-calendar-check"></i>&nbsp;
+                <span class="pc">2023-08-18 13:50:05</span>
+                <span class="mobile">2023-08-18 13:50</span>
+            </span>
+
+            <span class="meta-info-item article-update-date">
+                <i class="icon fa-solid fa-file-pen"></i>&nbsp;
+                <span class="pc">2023-08-18 14:11:24</span>
+            </span>
+        
+
+        
+            <span class="meta-info-item article-category border-box"><i class="icon fas fa-folder"></i>&nbsp;
+                <ul>
+                    
+                </ul>
+            </span>
+        
+
+        
+            <span class="article-tag meta-info-item border-box">
+                <i class="icon fas fa-tags"></i>&nbsp;
+                <ul>
+                    
+                </ul>
+            </span>
+        
+
+        
+        
+        
+        
+    </div>
+
+    
+</div>
+
+                        </div>
+                    </div>
+                </div>
+            
+
+            <div class="article-content keep-markdown-body">
+                
+
+                <h1 id="Cobalt-Strike-流量特征"><a href="#Cobalt-Strike-流量特征" class="headerlink" title="Cobalt Strike 流量特征"></a>Cobalt Strike 流量特征</h1><p>总结来源于网上资料， 有错的地方欢迎各位大佬指正。</p>
+<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><h3 id="简介：Cobalt-Strike-is-software-for-Adversary-Simulations-and-Red-Team-Operations-Cobalt-Strike-简称CS，-A-team详细介绍使用网址。CS是一款优秀的后渗透工具，可以在获取主机权限后进行长久权限维持，快速进行内网提权，凭据导出等。在后渗透中如果未修改特征，容易被流量审计设备监控，被蓝队溯源。"><a href="#简介：Cobalt-Strike-is-software-for-Adversary-Simulations-and-Red-Team-Operations-Cobalt-Strike-简称CS，-A-team详细介绍使用网址。CS是一款优秀的后渗透工具，可以在获取主机权限后进行长久权限维持，快速进行内网提权，凭据导出等。在后渗透中如果未修改特征，容易被流量审计设备监控，被蓝队溯源。" class="headerlink" title="简介：Cobalt Strike is software for Adversary Simulations and Red Team Operations. Cobalt Strike 简称CS， A-team详细介绍使用网址。CS是一款优秀的后渗透工具，可以在获取主机权限后进行长久权限维持，快速进行内网提权，凭据导出等。在后渗透中如果未修改特征，容易被流量审计设备监控，被蓝队溯源。"></a>简介：Cobalt Strike is software for Adversary Simulations and Red Team Operations. Cobalt Strike 简称CS， A-team详细介绍使用网址。CS是一款优秀的后渗透工具，可以在获取主机权限后进行长久权限维持，快速进行内网提权，凭据导出等。在后渗透中如果未修改特征，容易被流量审计设备监控，被蓝队溯源。</h3><h3 id="Cobalt-Strike-是一个为对手模拟和红队行动而设计的平台，主要用于执行有目标的攻击和模拟高级威胁-者的后渗透行动"><a href="#Cobalt-Strike-是一个为对手模拟和红队行动而设计的平台，主要用于执行有目标的攻击和模拟高级威胁-者的后渗透行动" class="headerlink" title="Cobalt Strike 是一个为对手模拟和红队行动而设计的平台，主要用于执行有目标的攻击和模拟高级威胁 者的后渗透行动"></a>Cobalt Strike 是一个为对手模拟和红队行动而设计的平台，主要用于执行有目标的攻击和模拟高级威胁 者的后渗透行动</h3><h2 id="特征"><a href="#特征" class="headerlink" title="特征"></a>特征</h2><h3 id="默认端口-50050"><a href="#默认端口-50050" class="headerlink" title="默认端口 50050"></a>默认端口 50050</h3><h3 id="SSL-证书流量特征："><a href="#SSL-证书流量特征：" class="headerlink" title="SSL 证书流量特征："></a>SSL 证书流量特征：</h3><ul>
+<li>keystore type: jks</li>
+<li>Alias name: cobaltstrike</li>
+<li>Own: CN&#x3D;Major Cobalt Strike</li>
+<li>Issuer: CN&#x3D;Major Cobalt Strike</li>
+</ul>
+<h3 id="默认-C-S-端通讯证书：字段和固定哈希值识别"><a href="#默认-C-S-端通讯证书：字段和固定哈希值识别" class="headerlink" title="默认 C&#x2F;S 端通讯证书：字段和固定哈希值识别"></a>默认 C&#x2F;S 端通讯证书：字段和固定哈希值识别</h3><h3 id="可以看到beacon的通信"><a href="#可以看到beacon的通信" class="headerlink" title="可以看到beacon的通信"></a>可以看到beacon的通信</h3><h2 id="对比正常的http流量，CS的http通信流量具有以下几个特征："><a href="#对比正常的http流量，CS的http通信流量具有以下几个特征：" class="headerlink" title="对比正常的http流量，CS的http通信流量具有以下几个特征："></a>对比正常的http流量，CS的http通信流量具有以下几个特征：</h2><h3 id="心跳包特征"><a href="#心跳包特征" class="headerlink" title="心跳包特征"></a>心跳包特征</h3><ul>
+<li>a)	间隔一定时间，均有通信，且流级上的上下行数据长度固定；</li>
+</ul>
+<h3 id="域名-IP特征"><a href="#域名-IP特征" class="headerlink" title="域名&#x2F;IP特征"></a>域名&#x2F;IP特征</h3><ul>
+<li>a)	未走CDN、域前置的，域名及IP暴露</li>
+<li>b) 走CDN、域前置的，真实IP会被隐藏；</li>
+</ul>
+<h3 id="指令特征"><a href="#指令特征" class="headerlink" title="指令特征"></a>指令特征</h3><ul>
+<li><pre><code>a)	下发指令时，通过心跳包接收指令，这时，server端返回的包更长，甚至包含要加载的dll模块数据。
+</code></pre>
+</li>
+<li><pre><code>b)	指令执行完后，client端通过POST请求发送执行的结果数据，body部分通过加密和base64编码。
+</code></pre>
+</li>
+<li><pre><code>c)	不同指令，执行的时间间隔不一样，可以通过POST请求和GET请求的间隔进行判断。
+</code></pre>
+</li>
+</ul>
+<h3 id="数据特征"><a href="#数据特征" class="headerlink" title="数据特征"></a>数据特征</h3><ul>
+<li>a)	在请求的返回包中，通信数据均隐藏在jqeury*.js中。</li>
+</ul>
+<h2 id="去除特征的方法"><a href="#去除特征的方法" class="headerlink" title="去除特征的方法"></a>去除特征的方法</h2><h3 id="修改默认端口50050"><a href="#修改默认端口50050" class="headerlink" title="修改默认端口50050"></a>修改默认端口50050</h3><h3 id="修改默认ssl证书"><a href="#修改默认ssl证书" class="headerlink" title="修改默认ssl证书"></a>修改默认ssl证书</h3><ul>
+<li>keytool -list -v -keystore cobaltstrike.store                                           </li>
+<li>参考链接：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/CoLo/p/14518441.html#0x00-%E5%85%B3%E9%97%AD%E5%90%8E%E5%8F%B0%E8%BF%90%E8%A1%8C%E7%9A%84cs">https://www.cnblogs.com/CoLo/p/14518441.html#0x00-%E5%85%B3%E9%97%AD%E5%90%8E%E5%8F%B0%E8%BF%90%E8%A1%8C%E7%9A%84cs</a></li>
+</ul>
+<h3 id="修改profile"><a href="#修改profile" class="headerlink" title="修改profile"></a>修改profile</h3><p><img src="https://blog-1254096303.cos.ap-chengdu.myqcloud.com/2023/03/24/641c789d879df.png" alt="Cobalt Strike 流量特征 分析.png"></p>
+
+            </div>
+
+            
+
+            
+
+            
+                <div class="article-nav">
+                    
+                        <div class="article-prev">
+                            <a class="prev"
+                               rel="prev"
+                               href="/2023/08/18/%E8%AE%B0%E4%B8%80%E6%AC%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E6%94%AF%E4%BB%98%E9%80%BB%E8%BE%91%E6%BC%8F%E6%B4%9E%E6%B5%8B%E8%AF%95/"
+                            >
+                            <span class="left arrow-icon flex-center">
+                              <i class="fas fa-chevron-left"></i>
+                            </span>
+                                <span class="title flex-center">
+                                <span class="post-nav-title-item text-ellipsis">记一次小程序支付逻辑漏洞测试</span>
+                                <span class="post-nav-item">上一篇</span>
+                            </span>
+                            </a>
+                        </div>
+                    
+                    
+                        <div class="article-next">
+                            <a class="next"
+                               rel="next"
+                               href="/2023/08/18/Python%E4%B8%ADargs%20kwargs%E5%8F%82%E6%95%B0%E7%9A%84%E4%B8%80%E4%BA%9B%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95/"
+                            >
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item text-ellipsis">Python中args kwargs参数的一些使用方法</span>
+                                <span class="post-nav-item">下一篇</span>
+                            </span>
+                                <span class="right arrow-icon flex-center">
+                              <i class="fas fa-chevron-right"></i>
+                            </span>
+                            </a>
+                        </div>
+                    
+                </div>
+            
+
+            
+                
+
+
+
+
+
+
+            
+        </div>
+
+        
+    </div>
+</div>
+
+
+                
+            </div>
+
+        </div>
+
+        <div class="page-main-content-bottom border-box">
+            
+<footer class="footer border-box">
+    <div class="border-box website-info-box default">
+        
+            <div class="copyright-info info-item default">
+                &copy;&nbsp;<span>2020</span>&nbsp;-&nbsp;2023
+                
+                    &nbsp;<i class="fas fa-heart icon-animate"></i>&nbsp;&nbsp;<a href="/">A_SNail</a>
+                
+            </div>
+
+            <div class="theme-info info-item default">
+                由&nbsp;<a target="_blank" href="https://hexo.io">Hexo</a>&nbsp;驱动&nbsp;|&nbsp;主题&nbsp;<a class="theme-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep v3.7.3</a>
+            </div>
+
+            
+
+            
+        
+
+        <div class="count-item info-item default">
+            
+
+            
+
+            
+        </div>
+    </div>
+</footer>
+
+        </div>
+    </div>
+
+    <!-- post tools -->
+    
+        <div class="post-tools right-toc">
+            <div class="post-tools-container border-box">
+    <ul class="tools-list border-box">
+        <!-- PC TOC show toggle -->
+        
+
+        <!-- PC go comment -->
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <!-- side tools -->
+    <div class="side-tools">
+        <div class="side-tools-container">
+    <ul class="side-tools-list">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <li class="tools-item tool-dark-light-toggle flex-center">
+            <i class="fas fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+            <li class="tools-item tool-scroll-to-top flex-center">
+                <i class="fas fa-arrow-up"></i>
+            </li>
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list">
+        
+
+        
+
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+
+        
+    </ul>
+</div>
+
+    </div>
+
+    <!-- image mask -->
+    <div class="zoom-in-image-mask">
+    <img class="zoom-in-image">
+</div>
+
+
+    <!-- local search -->
+    
+
+    <!-- tablet toc -->
+    
+</main>
+
+
+
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/main.js"></script>
+
+<script src="/js/header-shrink.js"></script>
+
+<script src="/js/back2top.js"></script>
+
+<script src="/js/dark-light-toggle.js"></script>
+
+
+
+
+
+
+
+
+
+
+<div class="post-scripts">
+    
+        
+<script src="/js/post-helper.js"></script>
+
+        
+        
+    
+    
+    
+</div>
+
+
+
+
+</body>
+</html>

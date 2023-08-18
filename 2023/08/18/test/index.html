@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="网络安全 渗透测试 漏洞挖掘 CNVD">
+    <meta name="description" content="A_Snail 的个人博客">
+    <meta name="author" content="A_SNail">
+    
+    <title>
+        
+            tst1 |
+        
+        A_Snail&#39;s Blog
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    
+        <link rel="shortcut icon" href="https://blog-1254096303.cos.ap-chengdu.myqcloud.com/blog/avatar.jpg">
+    
+    
+<link rel="stylesheet" href="/font/css/fontawesome.min.css">
+
+    
+<link rel="stylesheet" href="/font/css/regular.min.css">
+
+    
+<link rel="stylesheet" href="/font/css/solid.min.css">
+
+    
+<link rel="stylesheet" href="/font/css/brands.min.css">
+
+    
+    <script id="hexo-configurations">
+    let KEEP = window.KEEP || {}
+    KEEP.hexo_config = {"hostname":"example.com","root":"/","language":"zh-CN"}
+    KEEP.theme_config = {"toc":{"enable":false,"number":false,"expand_all":false,"init_open":true,"layout":"right"},"style":{"primary_color":"#1dd1a1","logo":"https://blog-1254096303.cos.ap-chengdu.myqcloud.com/blog/avatar.jpg","favicon":"https://blog-1254096303.cos.ap-chengdu.myqcloud.com/blog/avatar.jpg","avatar":"https://blog-1254096303.cos.ap-chengdu.myqcloud.com/blog/avatar.jpg","first_screen":{"enable":false,"header_transparent":false,"background_img":"/images/bg.svg","description":"Keep writing and Keep loving.","hitokoto":false},"scroll":{"progress_bar":false,"percent":false}},"local_search":{"enable":false,"preload":false},"code_block":{"tools":{"enable":false,"style":"default"},"highlight_theme":"default"},"side_tools":{},"pjax":{"enable":false},"lazyload":{"enable":false},"comment":{"enable":false,"use":"valine","valine":{"appid":null,"appkey":null,"server_urls":null,"placeholder":null},"gitalk":{"github_id":null,"github_admins":null,"repository":null,"client_id":null,"client_secret":null,"proxy":null},"twikoo":{"env_id":null,"region":null,"version":"1.6.8"},"waline":{"server_url":null,"reaction":false,"version":2},"giscus":{"repo":null,"repo_id":null,"category":"Announcements","category_id":null,"reactions_enabled":false}},"post":{"author_label":{"enable":true,"auto":true,"custom_label_list":["Trainee","Engineer","Architect"]},"word_count":{"wordcount":false,"min2read":false},"datetime_format":"YYYY-MM-DD HH:mm:ss","copyright_info":false},"website_count":{"busuanzi_count":{"enable":false,"site_uv":false,"site_pv":false,"page_pv":false}},"version":"3.7.3"}
+    KEEP.language_ago = {"second":"%s 秒前","minute":"%s 分钟前","hour":"%s 小时前","day":"%s 天前","week":"%s 周前","month":"%s 个月前","year":"%s 年前"}
+    KEEP.language_code_block = {"copy":"复制代码","copied":"已复制","fold":"折叠代码块","folded":"已折叠"}
+    KEEP.language_copy_copyright = {"copy":"复制版权信息","copied":"已复制","title":"原文标题","author":"原文作者","link":"原文链接"}
+  </script>
+<meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="A_Snail's Blog" type="application/atom+xml">
+</head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+
+    
+</div>
+
+
+<main class="page-container border-box">
+
+    <!-- home first screen  -->
+    
+
+    <!-- page content -->
+    <div class="page-main-content border-box">
+        <div class="page-main-content-top">
+            
+<header class="header-wrapper">
+
+    <div class="border-box header-content">
+        <div class="left border-box">
+            
+                <a class="logo-image border-box" href="/">
+                    <img src="https://blog-1254096303.cos.ap-chengdu.myqcloud.com/blog/avatar.jpg">
+                </a>
+            
+            <a class="site-name border-box" href="/">
+               A_Snail&#39;s Blog
+            </a>
+        </div>
+
+        <div class="right border-box">
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/"
+                            >
+                                首页
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/archives"
+                            >
+                                归档
+                            </a>
+                        </li>
+                    
+                    
+                </ul>
+            </div>
+            <div class="mobile">
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/">首页</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/archives">归档</a>
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle border-box">
+
+            <div class="main-content border-box">
+
+                
+
+                    <div class="fade-in-down-animation">
+    <div class="post-page-container border-box">
+
+        <div class="article-content-container border-box">
+
+            <div class="article-title">
+                <span class="title-hover-animation">tst1</span>
+            </div>
+
+            
+                <div class="article-header border-box">
+                    
+                        <div class="avatar-box border-box">
+                            <img src="https://blog-1254096303.cos.ap-chengdu.myqcloud.com/blog/avatar.jpg">
+                        </div>
+                    
+                    <div class="info-box">
+                        <div class="author">
+                            <span class="name">A_SNail</span>
+                            
+                                <span class="author-label">Lv2</span>
+                            
+                        </div>
+                        <div class="meta-info border-box">
+                            
+
+<div class="article-meta-info-container border-box post">
+    <div class="article-meta-info border-box">
+        
+
+
+        
+            <span class="meta-info-item article-create-date">
+                <i class="icon fa-solid fa-calendar-check"></i>&nbsp;
+                <span class="pc">2023-08-18 12:45:58</span>
+                <span class="mobile">2023-08-18 12:45</span>
+            </span>
+
+            <span class="meta-info-item article-update-date">
+                <i class="icon fa-solid fa-file-pen"></i>&nbsp;
+                <span class="pc">2023-08-18 14:05:19</span>
+            </span>
+        
+
+        
+            <span class="meta-info-item article-category border-box"><i class="icon fas fa-folder"></i>&nbsp;
+                <ul>
+                    
+                </ul>
+            </span>
+        
+
+        
+            <span class="article-tag meta-info-item border-box">
+                <i class="icon fas fa-tags"></i>&nbsp;
+                <ul>
+                    
+                </ul>
+            </span>
+        
+
+        
+        
+        
+        
+    </div>
+
+    
+</div>
+
+                        </div>
+                    </div>
+                </div>
+            
+
+            <div class="article-content keep-markdown-body">
+                
+
+                <h1 id="参数类型。"><a href="#参数类型。" class="headerlink" title="参数类型。"></a>参数类型。</h1><h2 id="形参和实参"><a href="#形参和实参" class="headerlink" title="形参和实参"></a>形参和实参</h2><p>实参是实际参数，而形参是形式参数，例如 </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">def func(a,b,c): # 这里的a,b,c 就是形式参数，</span><br><span class="line">	print(a,b,c)</span><br><span class="line"></span><br><span class="line">func(12,3,45)     # 这里的12,3，45 就是实参，也就是实际参数</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="参数的分类。"><a href="#参数的分类。" class="headerlink" title="参数的分类。"></a>参数的分类。</h2><h3 id="位置参数"><a href="#位置参数" class="headerlink" title="位置参数"></a>位置参数</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">def info(name,age,gender):</span><br><span class="line">    print(name,age,gender)</span><br><span class="line"></span><br><span class="line">info(&#x27;张三&#x27;, 23,&#x27;man&#x27;)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>运行结果：<br><img src="https://blog-1254096303.cos.ap-chengdu.myqcloud.com/blog/image-20230328211423599.png"></p>
+<h3 id="关键字参数-默认值参数"><a href="#关键字参数-默认值参数" class="headerlink" title="关键字参数 +默认值参数"></a>关键字参数 +默认值参数</h3><ul>
+<li>关键字参数：</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">def func(a,b,c):</span><br><span class="line">    print(a,b,c)</span><br><span class="line"></span><br><span class="line">func(a=2,c=1,b=3)</span><br></pre></td></tr></table></figure>
+
+<p>结果：<br><img src="https://blog-1254096303.cos.ap-chengdu.myqcloud.com/blog/image-20230328211432345.png"><br>关键字传参可以不用管参数的位置，但是需要给参数一定的值。</p>
+<ul>
+<li>默认值传参。<br>在现实生活中，我们需要录入很多重复的信息的时候，可以给定一个默认值，比如一个班级的学生，60个男生，5个女生的话，可以默认设置为男性。</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">def info2(name,age,gender=&#x27;woman&#x27;):</span><br><span class="line">    print(name,age,gender)</span><br><span class="line">info2(&#x27;刘亦菲&#x27;, 19)</span><br></pre></td></tr></table></figure>
+
+<p>运行结果：<img src="C:/Users/wupan/AppData/Roaming/Typora/typora-user-images/image-20230328211441079.png" alt="image-20230328211441079"></p>
+<h3 id="参数对比"><a href="#参数对比" class="headerlink" title="参数对比"></a>参数对比</h3><p><img src="https://blog-1254096303.cos.ap-chengdu.myqcloud.com/blog/image-20230328211503588.png" alt="image-20230328211503588"><br>结果对比：<br><img src="https://blog-1254096303.cos.ap-chengdu.myqcloud.com/blog/image-20230328211516342.png" alt="image-20230328211516342"></p>
+<p>info函数中gender是没有给定默认值的，所以传参的时候需要给定值</p>
+<h3 id="动态参数"><a href="#动态参数" class="headerlink" title="动态参数"></a>动态参数</h3><h4 id="位置参数-1"><a href="#位置参数-1" class="headerlink" title="位置参数"></a>位置参数</h4><p>在运用过程中，我们可能需要传递的参数是不固定的，有时候参数多，有时候少，那么下面这个就可以解决这个问题。</p>
+<ul>
+<li>*args<br>* args 表示可以接受所有传递进来的位置参数，同时也还可以接受列表和字典类型的传参。<br>例：<br><img src="https://blog-1254096303.cos.ap-chengdu.myqcloud.com/blog/image-20230328211521872.png" alt="image-20230328211521872"></li>
+</ul>
+<p>这里我们可以看到，我们传入进去的参数，都被以元组类型打印出来了，但是我们直接传参列表和字典，列表和字典都被当做一个参数传递，打印出来的是元组里面的列表和元组里面的字典，而如果我们传递*list和*dict的话 那么传递列表的值就是单独的，而且打印的时候是一个元组。而字典也会被单独传递键名。</p>
+<h4 id="关键字参数"><a href="#关键字参数" class="headerlink" title="关键字参数"></a>关键字参数</h4><ul>
+<li>**kwargs参数传递</li>
+</ul>
+<p><img src="https://blog-1254096303.cos.ap-chengdu.myqcloud.com/blog/image-20230328211533762.png" alt="image-20230328211533762"><br>这里宇*不同的是，**kwargs的参数传递，只能关键字类型的和字典类型的传参，其他的会报错。</p>
+<p>**kwargs 只有在有关键字参数的时候，才会有字典的值</p>
+<h2 id="混合参数的搭配使用"><a href="#混合参数的搭配使用" class="headerlink" title="混合参数的搭配使用"></a>混合参数的搭配使用</h2><p>通过上面的了解，我们有时候需要给定一些固定的位置参数，但是又需要传递未知长度的参数，甚至最后可能还需要给关键字参数，那么我们可以将所学的几种参数搭配使用。<br><img src="https://blog-1254096303.cos.ap-chengdu.myqcloud.com/blog/image-20230328211539189.png" alt="image-20230328211539189"><br>那么参数的使用顺序是<br>位置参数&gt;*args&gt;关键字参数&gt;**kwargs<br>这里解释以下为什么是这个顺序。<br>这里的c 默认情况下是为你好的，但是我们打印的时候 c变为3了，我们想要的默认值就没法生效了，所以我们想要达到想要的结果，就只能修改传递位置参数的顺序，如图，如果上面第一个传参是*args参数的话，那么我们输入的前面10个参数，全部都会被它所接收，而**kwargs 只有在有关键字参数的时候，才会有字典的值 那么它为空，此时a和b两个参数，就已经没有参数了，这里显然是行不通的。<br>但是打印的时候，关键字传参可以先打印。<br><img src="https://blog-1254096303.cos.ap-chengdu.myqcloud.com/blog/image-20230328211543557.png" alt="image-20230328211543557"></p>
+<h2 id="接受任意类型的参数。"><a href="#接受任意类型的参数。" class="headerlink" title="接受任意类型的参数。"></a>接受任意类型的参数。</h2><p>这个是一个比较特殊的<br><img src="https://blog-1254096303.cos.ap-chengdu.myqcloud.com/blog/image-20230328211549493.png" alt="image-20230328211549493"><br>如图所示，结果也进行了备注。</p>
+
+            </div>
+
+            
+
+            
+
+            
+                <div class="article-nav">
+                    
+                        <div class="article-prev">
+                            <a class="prev"
+                               rel="prev"
+                               href="/2023/08/18/%E6%9F%90%E5%B0%8F%E7%A8%8B%E6%9C%AA%E6%8E%88%E6%9D%83+%E6%94%AF%E4%BB%98%E9%80%BB%E8%BE%91%E6%BC%8F%E6%B4%9E/"
+                            >
+                            <span class="left arrow-icon flex-center">
+                              <i class="fas fa-chevron-left"></i>
+                            </span>
+                                <span class="title flex-center">
+                                <span class="post-nav-title-item text-ellipsis">某小程未授权+支付逻辑漏洞</span>
+                                <span class="post-nav-item">上一篇</span>
+                            </span>
+                            </a>
+                        </div>
+                    
+                    
+                        <div class="article-next">
+                            <a class="next"
+                               rel="next"
+                               href="/2023/08/18/hello-world/"
+                            >
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item text-ellipsis">Hello World</span>
+                                <span class="post-nav-item">下一篇</span>
+                            </span>
+                                <span class="right arrow-icon flex-center">
+                              <i class="fas fa-chevron-right"></i>
+                            </span>
+                            </a>
+                        </div>
+                    
+                </div>
+            
+
+            
+                
+
+
+
+
+
+
+            
+        </div>
+
+        
+    </div>
+</div>
+
+
+                
+            </div>
+
+        </div>
+
+        <div class="page-main-content-bottom border-box">
+            
+<footer class="footer border-box">
+    <div class="border-box website-info-box default">
+        
+            <div class="copyright-info info-item default">
+                &copy;&nbsp;<span>2020</span>&nbsp;-&nbsp;2023
+                
+                    &nbsp;<i class="fas fa-heart icon-animate"></i>&nbsp;&nbsp;<a href="/">A_SNail</a>
+                
+            </div>
+
+            <div class="theme-info info-item default">
+                由&nbsp;<a target="_blank" href="https://hexo.io">Hexo</a>&nbsp;驱动&nbsp;|&nbsp;主题&nbsp;<a class="theme-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep v3.7.3</a>
+            </div>
+
+            
+
+            
+        
+
+        <div class="count-item info-item default">
+            
+
+            
+
+            
+        </div>
+    </div>
+</footer>
+
+        </div>
+    </div>
+
+    <!-- post tools -->
+    
+        <div class="post-tools right-toc">
+            <div class="post-tools-container border-box">
+    <ul class="tools-list border-box">
+        <!-- PC TOC show toggle -->
+        
+
+        <!-- PC go comment -->
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <!-- side tools -->
+    <div class="side-tools">
+        <div class="side-tools-container">
+    <ul class="side-tools-list">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <li class="tools-item tool-dark-light-toggle flex-center">
+            <i class="fas fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+            <li class="tools-item tool-scroll-to-top flex-center">
+                <i class="fas fa-arrow-up"></i>
+            </li>
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list">
+        
+
+        
+
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+
+        
+    </ul>
+</div>
+
+    </div>
+
+    <!-- image mask -->
+    <div class="zoom-in-image-mask">
+    <img class="zoom-in-image">
+</div>
+
+
+    <!-- local search -->
+    
+
+    <!-- tablet toc -->
+    
+</main>
+
+
+
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/main.js"></script>
+
+<script src="/js/header-shrink.js"></script>
+
+<script src="/js/back2top.js"></script>
+
+<script src="/js/dark-light-toggle.js"></script>
+
+
+
+
+
+
+
+
+
+
+<div class="post-scripts">
+    
+        
+<script src="/js/post-helper.js"></script>
+
+        
+        
+    
+    
+    
+</div>
+
+
+
+
+</body>
+</html>

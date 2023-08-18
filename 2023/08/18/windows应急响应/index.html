@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="网络安全 渗透测试 漏洞挖掘 CNVD">
+    <meta name="description" content="A_Snail 的个人博客">
+    <meta name="author" content="A_SNail">
+    
+    <title>
+        
+            Windows的应急 |
+        
+        A_Snail&#39;s Blog
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    
+        <link rel="shortcut icon" href="https://blog-1254096303.cos.ap-chengdu.myqcloud.com/blog/avatar.jpg">
+    
+    
+<link rel="stylesheet" href="/font/css/fontawesome.min.css">
+
+    
+<link rel="stylesheet" href="/font/css/regular.min.css">
+
+    
+<link rel="stylesheet" href="/font/css/solid.min.css">
+
+    
+<link rel="stylesheet" href="/font/css/brands.min.css">
+
+    
+    <script id="hexo-configurations">
+    let KEEP = window.KEEP || {}
+    KEEP.hexo_config = {"hostname":"example.com","root":"/","language":"zh-CN"}
+    KEEP.theme_config = {"toc":{"enable":false,"number":false,"expand_all":false,"init_open":true,"layout":"right"},"style":{"primary_color":"#1dd1a1","logo":"https://blog-1254096303.cos.ap-chengdu.myqcloud.com/blog/avatar.jpg","favicon":"https://blog-1254096303.cos.ap-chengdu.myqcloud.com/blog/avatar.jpg","avatar":"https://blog-1254096303.cos.ap-chengdu.myqcloud.com/blog/avatar.jpg","first_screen":{"enable":false,"header_transparent":false,"background_img":"/images/bg.svg","description":"Keep writing and Keep loving.","hitokoto":false},"scroll":{"progress_bar":false,"percent":false}},"local_search":{"enable":false,"preload":false},"code_block":{"tools":{"enable":false,"style":"default"},"highlight_theme":"default"},"side_tools":{},"pjax":{"enable":false},"lazyload":{"enable":false},"comment":{"enable":false,"use":"valine","valine":{"appid":null,"appkey":null,"server_urls":null,"placeholder":null},"gitalk":{"github_id":null,"github_admins":null,"repository":null,"client_id":null,"client_secret":null,"proxy":null},"twikoo":{"env_id":null,"region":null,"version":"1.6.8"},"waline":{"server_url":null,"reaction":false,"version":2},"giscus":{"repo":null,"repo_id":null,"category":"Announcements","category_id":null,"reactions_enabled":false}},"post":{"author_label":{"enable":true,"auto":true,"custom_label_list":["Trainee","Engineer","Architect"]},"word_count":{"wordcount":false,"min2read":false},"datetime_format":"YYYY-MM-DD HH:mm:ss","copyright_info":false},"website_count":{"busuanzi_count":{"enable":false,"site_uv":false,"site_pv":false,"page_pv":false}},"version":"3.7.3"}
+    KEEP.language_ago = {"second":"%s 秒前","minute":"%s 分钟前","hour":"%s 小时前","day":"%s 天前","week":"%s 周前","month":"%s 个月前","year":"%s 年前"}
+    KEEP.language_code_block = {"copy":"复制代码","copied":"已复制","fold":"折叠代码块","folded":"已折叠"}
+    KEEP.language_copy_copyright = {"copy":"复制版权信息","copied":"已复制","title":"原文标题","author":"原文作者","link":"原文链接"}
+  </script>
+<meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="A_Snail's Blog" type="application/atom+xml">
+</head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+
+    
+</div>
+
+
+<main class="page-container border-box">
+
+    <!-- home first screen  -->
+    
+
+    <!-- page content -->
+    <div class="page-main-content border-box">
+        <div class="page-main-content-top">
+            
+<header class="header-wrapper">
+
+    <div class="border-box header-content">
+        <div class="left border-box">
+            
+                <a class="logo-image border-box" href="/">
+                    <img src="https://blog-1254096303.cos.ap-chengdu.myqcloud.com/blog/avatar.jpg">
+                </a>
+            
+            <a class="site-name border-box" href="/">
+               A_Snail&#39;s Blog
+            </a>
+        </div>
+
+        <div class="right border-box">
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/"
+                            >
+                                首页
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/archives"
+                            >
+                                归档
+                            </a>
+                        </li>
+                    
+                    
+                </ul>
+            </div>
+            <div class="mobile">
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/">首页</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/archives">归档</a>
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle border-box">
+
+            <div class="main-content border-box">
+
+                
+
+                    <div class="fade-in-down-animation">
+    <div class="post-page-container border-box">
+
+        <div class="article-content-container border-box">
+
+            <div class="article-title">
+                <span class="title-hover-animation">Windows的应急</span>
+            </div>
+
+            
+                <div class="article-header border-box">
+                    
+                        <div class="avatar-box border-box">
+                            <img src="https://blog-1254096303.cos.ap-chengdu.myqcloud.com/blog/avatar.jpg">
+                        </div>
+                    
+                    <div class="info-box">
+                        <div class="author">
+                            <span class="name">A_SNail</span>
+                            
+                                <span class="author-label">Lv2</span>
+                            
+                        </div>
+                        <div class="meta-info border-box">
+                            
+
+<div class="article-meta-info-container border-box post">
+    <div class="article-meta-info border-box">
+        
+
+
+        
+            <span class="meta-info-item article-create-date">
+                <i class="icon fa-solid fa-calendar-check"></i>&nbsp;
+                <span class="pc">2023-08-18 13:50:05</span>
+                <span class="mobile">2023-08-18 13:50</span>
+            </span>
+
+            <span class="meta-info-item article-update-date">
+                <i class="icon fa-solid fa-file-pen"></i>&nbsp;
+                <span class="pc">2023-08-18 14:11:51</span>
+            </span>
+        
+
+        
+            <span class="meta-info-item article-category border-box"><i class="icon fas fa-folder"></i>&nbsp;
+                <ul>
+                    
+                </ul>
+            </span>
+        
+
+        
+            <span class="article-tag meta-info-item border-box">
+                <i class="icon fas fa-tags"></i>&nbsp;
+                <ul>
+                    
+                </ul>
+            </span>
+        
+
+        
+        
+        
+        
+    </div>
+
+    
+</div>
+
+                        </div>
+                    </div>
+                </div>
+            
+
+            <div class="article-content keep-markdown-body">
+                
+
+                <h1 id="Windows的应急"><a href="#Windows的应急" class="headerlink" title="Windows的应急"></a>Windows的应急</h1><p>学习过程中看到师傅文章，所以顺便做了个思维导图 师傅太强了 原文链接已放文末。</p>
+<h2 id="常见的应急响应事件分类。"><a href="#常见的应急响应事件分类。" class="headerlink" title="常见的应急响应事件分类。"></a>常见的应急响应事件分类。</h2><h3 id="web入侵"><a href="#web入侵" class="headerlink" title="web入侵"></a>web入侵</h3><ul>
+<li><p>网页挂马</p>
+</li>
+<li><p>主页篡改</p>
+</li>
+<li><p>webshell</p>
+</li>
+</ul>
+<h3 id="系统入侵"><a href="#系统入侵" class="headerlink" title="系统入侵"></a>系统入侵</h3><ul>
+<li><p>病毒木马</p>
+</li>
+<li><p>勒索病毒</p>
+</li>
+<li><p>远控木马</p>
+</li>
+</ul>
+<h3 id="网络攻击"><a href="#网络攻击" class="headerlink" title="网络攻击"></a>网络攻击</h3><ul>
+<li><p>ddos</p>
+</li>
+<li><p>dns劫持</p>
+</li>
+<li><p>arp欺骗</p>
+</li>
+</ul>
+<h2 id="windows入侵排查"><a href="#windows入侵排查" class="headerlink" title="windows入侵排查"></a>windows入侵排查</h2><h3 id="1-1-检查账号安全性"><a href="#1-1-检查账号安全性" class="headerlink" title="1.1 检查账号安全性"></a>1.1 检查账号安全性</h3><ul>
+<li><ol>
+<li>检查系统账号安全性。</li>
+</ol>
+</li>
+<li><ol start="2">
+<li>查看服务器是否存在可疑或者新增账号</li>
+</ol>
+<ul>
+<li><p>检查方法：</p>
+<ul>
+<li>Win+R打开运行窗口，输入lusrmgr.msc，查看是否有新增可疑的账号，如果有管理员群组里的新增账户，请立即禁用或者删掉</li>
+</ul>
+</li>
+<li><p>管理员群组：</p>
+<ul>
+<li>Administrators</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><ol start="3">
+<li>查看服务器是否存在隐藏账号，克隆账号等。</li>
+</ol>
+<ul>
+<li><p>检查方法：</p>
+<ul>
+<li><p>打开注册表：查看对应键值</p>
+<ul>
+<li>第一步：Win+R打开运行窗口，输入regedit打开注册表编辑器</li>
+<li>第二步：选择 HKEY_LOCAL_MACHINE&#x2F;SAM&#x2F;SAM，默认无法查看</li>
+<li>第三步：右击SAM，权限，选择当前用户(一般是Administrator),将权限勾选为完全控制，然后确定并且关闭注册表</li>
+<li>第四步：选择 HKEY_LOCAL_MACHINE&#x2F;SAM&#x2F;SAM&#x2F;Domains&#x2F;Account&#x2F;Users;</li>
+<li>第五步：在Names项下可以看到实例所有用户名</li>
+<li>Tips:如果出现本地账户中没有的账户，即为隐藏账户，在确认为非系统用户的前提下，可删除此用户</li>
+</ul>
+</li>
+<li><p>使用D盾_web查杀工具，集成了对克隆账号的检测功能</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>结合日志，查看管理员登录时间、用户名是否存在异常。</p>
+<ul>
+<li><p>方法：</p>
+<ul>
+<li><ol>
+<li>Win+R打开运行窗口，输入eventvwr.msc，打开事件查看器。</li>
+</ol>
+</li>
+<li><ol start="2">
+<li>导出Windows日志–安全，利用Log Parser进行分析</li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="1-2-检查异常端口、进程"><a href="#1-2-检查异常端口、进程" class="headerlink" title="1.2 检查异常端口、进程"></a>1.2 检查异常端口、进程</h3><ul>
+<li><ol>
+<li>netstat -ano 查看目前的网络连接，定位可疑的ESTABLISHED状态</li>
+</ol>
+</li>
+<li><ol start="2">
+<li>根据netstat 确定PID，再通过tasklist | findstr “PID” 定位进程</li>
+</ol>
+</li>
+<li><ol start="3">
+<li>Win+R打开运行窗口，输入msinfo32，在【软件环境】-&gt; 【正在运行的任务】通过PID和进程名定位，就可以看到进程的详细信息，比如进程路径、进程ID、文件创建日期、启动时间等。</li>
+</ol>
+</li>
+<li><ol start="4">
+<li>在我们想要杀死进程的时候，可能因为进程绑定了系统服务，无法杀死，通过tasklist &#x2F;svc 查看进程对应的服务。Win+R打开运行窗口，输入serivces.msc，关闭对应服务，然后在杀死进程。</li>
+</ol>
+</li>
+<li><ol start="5">
+<li>查看Windows服务所对应的端口：</li>
+</ol>
+<ul>
+<li>%system%&#x2F;system32&#x2F;drivers&#x2F;etc&#x2F;services (一般%system%就是C:\Windows)</li>
+</ul>
+</li>
+<li><p>Tips：当我们通过第3步确定落地文件之后，可以将可疑文件上传到威胁情报社区去做威胁情报检测。</p>
+</li>
+</ul>
+<h3 id="1-3-检查启动项、计划任务、服务"><a href="#1-3-检查启动项、计划任务、服务" class="headerlink" title="1.3 检查启动项、计划任务、服务"></a>1.3 检查启动项、计划任务、服务</h3><ul>
+<li><p>1、检查服务器是否有异常的启动项</p>
+<ul>
+<li><ol>
+<li>登录服务器，单机【开始】-&gt; 【所有程序】-&gt;【启动】，默认情况下此目录是一个空目录，确认是否有非业务程序在该目录下</li>
+</ol>
+</li>
+<li><ol start="2">
+<li>Win+R打开运行窗口，输入msconfig，查看是否存在命名异常的启动项目，是则取消勾选该启动项，并到命令中显示的路径除文件</li>
+</ol>
+</li>
+<li><ol start="3">
+<li>Win+R打开运行窗口，输入regedit打开注册表，查看开机启动项是否正常，注册表项如下：</li>
+</ol>
+<ul>
+<li>HKEY_CURRENT_USER\SOFTWARE\Micorsoft\Windows\CurrentVersion\Run</li>
+<li>HKEY_LOCAL_MACHINE\SOFTWARE\Micorsoft\Windows\CurrentVersion\Run</li>
+<li>HKEY_LOCAL_MACHINE\SOFTWARE\Micorsoft\Windows\CurrentVersion\RunOnce检查右侧是否有启动异常的项目，有则删除，并建议安装杀毒软件进行病毒查杀，清除残留病毒或木马。</li>
+</ul>
+</li>
+<li><ol start="4">
+<li>利用安全软件查看启动项、开机时间管理等</li>
+</ol>
+</li>
+<li><ol start="5">
+<li>Win+R打开运行窗口，输入gpedit.msc打开本地组策略编辑器，单机【Windows】-&gt;【脚本(启动&#x2F;关机)】-&gt;【启动】&#x2F;【关机】查看是否有启动项</li>
+</ol>
+</li>
+</ul>
+</li>
+<li><p>2、检查计划任务</p>
+</li>
+<li><p>3、服务自启动</p>
+</li>
+</ul>
+<h3 id="1-4-检查系统相关信息"><a href="#1-4-检查系统相关信息" class="headerlink" title="1.4 检查系统相关信息"></a>1.4 检查系统相关信息</h3><ul>
+<li><p>1、查看系统版本以及补丁信息</p>
+<ul>
+<li>检查方法：Win+R打开运行窗口，输入systeminfo，查看系统信息</li>
+</ul>
+</li>
+<li><p>2、查找可疑目录及文件</p>
+<ul>
+<li><ol>
+<li>查看用户目录，新建账号会在这个目录生成一个用户目录</li>
+</ol>
+<ul>
+<li>Windows Server 2003 : C:\Documents and Settings</li>
+<li>Windows Server 2008R2 : C:\Users\</li>
+</ul>
+</li>
+<li><ol start="2">
+<li>Win+R 打开运行窗口，输入%UserProfile%\Recent，分析最近打开文件</li>
+</ol>
+</li>
+<li><ol start="3">
+<li>在服务器各个目录，可根据文件夹内文件列表时间进行排序，查找可疑文件</li>
+</ol>
+</li>
+<li><ol start="4">
+<li>回收站、浏览器下载目录、浏览器历史记录</li>
+</ol>
+</li>
+<li><ol start="5">
+<li>修改时间在创建时间之前的为可疑文件</li>
+</ol>
+</li>
+</ul>
+</li>
+<li><p>3、得到发现Webshell、远控木马的创建时间，找同一时间范围内创建的文件</p>
+<ul>
+<li><ol>
+<li>利用Registry Workshop 注册表编辑器的搜索功能，可以找到最后写入时间区间的文件</li>
+</ol>
+</li>
+<li><ol start="2">
+<li>利用计算机自带的文件搜索功能，指定修改时间进行搜索</li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="1-5-自动化查杀"><a href="#1-5-自动化查杀" class="headerlink" title="1.5 自动化查杀"></a>1.5 自动化查杀</h3><ul>
+<li><p>1、病毒查杀</p>
+<ul>
+<li>检查方法：下载安全软件，更新最新病毒库，进行全盘扫描</li>
+</ul>
+</li>
+<li><p>2、webshell查杀</p>
+<ul>
+<li>检查方法：选择具体的站点路径进行webshell查杀，建议使用两款或者多款查杀工具同时查杀，可以相互补充规则库的不足</li>
+</ul>
+</li>
+</ul>
+<h3 id="1-6-日志分析"><a href="#1-6-日志分析" class="headerlink" title="1.6 日志分析"></a>1.6 日志分析</h3><ul>
+<li><p>1、系统日志</p>
+<ul>
+<li><ol>
+<li>前提：开启审核策略，若日后出现系统故障、安全事故则可以查看系统的日志文件，排除故障，追查入侵的信息等。</li>
+</ol>
+</li>
+<li><ol start="2">
+<li>Win+R打开运行窗口，输入eventvwr.msc，打开事件查看器</li>
+</ol>
+</li>
+<li><ol start="3">
+<li>导出应用程序日志、安全日志、系统日志，利用Log Parser进行分析</li>
+</ol>
+</li>
+</ul>
+</li>
+<li><p>2、web访问日志</p>
+<ul>
+<li><ol>
+<li>找到中间件的web日志，打包到本地方便进行分析</li>
+</ol>
+</li>
+<li><ol start="2">
+<li>Windows推荐使用EmEditor进行日志分析；Linux推荐使用shell命令组合查询分析</li>
+</ol>
+</li>
+</ul>
+</li>
+<li><p>常见日志存放路径</p>
+<ul>
+<li><p>1、apache服务器</p>
+<ul>
+<li>Windows : &lt;Apache安装目录&gt;\logs\access.log</li>
+<li>Linux :&#x2F;usr&#x2F;local&#x2F;apache&#x2F;logs&#x2F;access.log</li>
+<li>若不存在，参考Apache配置文件httpd.conf中相关配置</li>
+</ul>
+</li>
+<li><p>2、tomcat服务器</p>
+<ul>
+<li><p>日志文件通常位于Tomcat安装目录下的logs文件夹内，若不存在，则参考Tomcat配置文件Server.xml中的相关配置 ，如：</p>
+<ul>
+<li><Valve className="org.apache.catalina.valves.AccessLogValve"></li>
+<li>directory&#x3D;”logs” prefix&#x3D;”localhost_access_log.”</li>
+<li>suffix&#x3D;”.txt”</li>
+<li>pattern&#x3D;”common” resolveHosts&#x3D;”false”&#x2F;&gt;</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>3、IIS服务器</p>
+<ul>
+<li>默认位置：%systemroot%\system32\logfiles\ 可自由设置</li>
+<li>默认日志命名方式：ex+年份的末两位数字+月份+日期+.log</li>
+</ul>
+</li>
+<li><p>4、Nginx</p>
+<ul>
+<li>日志存储路径在Nginx配置文件中，其中：</li>
+<li>Access_log变量规定了日志存放路径与名字，以及日志格式名称，默认值”access_log”</li>
+</ul>
+</li>
+<li><p>5、Jboss</p>
+<ul>
+<li>默认不做访问日志记录</li>
+<li>修改${JBOSS_HOME}&#x2F;server&#x2F;default&#x2F;deploy&#x2F;jbossweb.sar&#x2F;server.xml（不同版本文件位置不一样）</li>
+<li>日志保存在${JBOSS_HOME}&#x2F;server&#x2F;default&#x2F;log&#x2F;下，前缀为：localhost_access_log</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="关于配置文件"><a href="#关于配置文件" class="headerlink" title="关于配置文件"></a>关于配置文件</h3><ul>
+<li>Tomcat: server.xml 会有服务器端口配置，日志配置等</li>
+<li>Apache: httpd.conf是apache主要配置文件，包括端口，模块启用，日志配置等</li>
+<li>Nginx: nginx.conf是主要配置文件，会有端口，重写，代理等配置，也会有日志配置等。</li>
+<li>IIS: web.config 是主要配置文件，通过IIS界面修改的配置会保存到web.config里，包括重写等操作，日志配置一般不变，通过界面就可查看</li>
+</ul>
+<p>参考链接： <a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_44727454/article/details/125605281">https://blog.csdn.net/weixin_44727454/article/details/125605281</a><br>下面附上思维导图 </p>
+<p>我好菜  太废物了  淦</p>
+<p><img src="https://blog-1254096303.cos.ap-chengdu.myqcloud.com/2023/03/23/641b33e3635d6.png" alt="Windows的应急.png"></p>
+
+            </div>
+
+            
+
+            
+
+            
+                <div class="article-nav">
+                    
+                        <div class="article-prev">
+                            <a class="prev"
+                               rel="prev"
+                               href="/2023/08/18/%E4%BB%8Esql%E6%B3%A8%E5%85%A5%E5%88%B0%E8%BF%9C%E7%A8%8B%E7%99%BB%E5%BD%95%E7%9A%84%E7%AE%80%E5%8D%95%E5%88%A9%E7%94%A8/"
+                            >
+                            <span class="left arrow-icon flex-center">
+                              <i class="fas fa-chevron-left"></i>
+                            </span>
+                                <span class="title flex-center">
+                                <span class="post-nav-title-item text-ellipsis">从sql注入到远程登录的简单利用</span>
+                                <span class="post-nav-item">上一篇</span>
+                            </span>
+                            </a>
+                        </div>
+                    
+                    
+                        <div class="article-next">
+                            <a class="next"
+                               rel="next"
+                               href="/2023/08/18/2022%E7%AC%AC%E4%BA%94%E7%A9%BA%E9%97%B4-web%E9%83%A8%E5%88%86wp%E5%A4%8D%E7%9B%98%E6%80%BB%E7%BB%93/"
+                            >
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item text-ellipsis">2022第五空间-web部分wp复盘总结</span>
+                                <span class="post-nav-item">下一篇</span>
+                            </span>
+                                <span class="right arrow-icon flex-center">
+                              <i class="fas fa-chevron-right"></i>
+                            </span>
+                            </a>
+                        </div>
+                    
+                </div>
+            
+
+            
+                
+
+
+
+
+
+
+            
+        </div>
+
+        
+    </div>
+</div>
+
+
+                
+            </div>
+
+        </div>
+
+        <div class="page-main-content-bottom border-box">
+            
+<footer class="footer border-box">
+    <div class="border-box website-info-box default">
+        
+            <div class="copyright-info info-item default">
+                &copy;&nbsp;<span>2020</span>&nbsp;-&nbsp;2023
+                
+                    &nbsp;<i class="fas fa-heart icon-animate"></i>&nbsp;&nbsp;<a href="/">A_SNail</a>
+                
+            </div>
+
+            <div class="theme-info info-item default">
+                由&nbsp;<a target="_blank" href="https://hexo.io">Hexo</a>&nbsp;驱动&nbsp;|&nbsp;主题&nbsp;<a class="theme-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep v3.7.3</a>
+            </div>
+
+            
+
+            
+        
+
+        <div class="count-item info-item default">
+            
+
+            
+
+            
+        </div>
+    </div>
+</footer>
+
+        </div>
+    </div>
+
+    <!-- post tools -->
+    
+        <div class="post-tools right-toc">
+            <div class="post-tools-container border-box">
+    <ul class="tools-list border-box">
+        <!-- PC TOC show toggle -->
+        
+
+        <!-- PC go comment -->
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <!-- side tools -->
+    <div class="side-tools">
+        <div class="side-tools-container">
+    <ul class="side-tools-list">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <li class="tools-item tool-dark-light-toggle flex-center">
+            <i class="fas fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+            <li class="tools-item tool-scroll-to-top flex-center">
+                <i class="fas fa-arrow-up"></i>
+            </li>
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list">
+        
+
+        
+
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+
+        
+    </ul>
+</div>
+
+    </div>
+
+    <!-- image mask -->
+    <div class="zoom-in-image-mask">
+    <img class="zoom-in-image">
+</div>
+
+
+    <!-- local search -->
+    
+
+    <!-- tablet toc -->
+    
+</main>
+
+
+
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/main.js"></script>
+
+<script src="/js/header-shrink.js"></script>
+
+<script src="/js/back2top.js"></script>
+
+<script src="/js/dark-light-toggle.js"></script>
+
+
+
+
+
+
+
+
+
+
+<div class="post-scripts">
+    
+        
+<script src="/js/post-helper.js"></script>
+
+        
+        
+    
+    
+    
+</div>
+
+
+
+
+</body>
+</html>
