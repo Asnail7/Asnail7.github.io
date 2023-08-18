@@ -9,7 +9,7 @@
     
     <title>
         
-            某小程未授权+支付逻辑漏洞 |
+            从sql注入到远程登录的简单利用 |
         
         A_Snail&#39;s Blog
     </title>
@@ -171,7 +171,7 @@
         <div class="article-content-container border-box">
 
             <div class="article-title">
-                <span class="title-hover-animation">某小程未授权+支付逻辑漏洞</span>
+                <span class="title-hover-animation">从sql注入到远程登录的简单利用</span>
             </div>
 
             
@@ -199,19 +199,33 @@
         
             <span class="meta-info-item article-create-date">
                 <i class="icon fa-solid fa-calendar-check"></i>&nbsp;
-                <span class="pc">2023-08-18 13:50:05</span>
-                <span class="mobile">2023-08-18 13:50</span>
+                <span class="pc">2023-06-01 21:17:10</span>
+                <span class="mobile">2023-06-01 21:17</span>
             </span>
 
             <span class="meta-info-item article-update-date">
                 <i class="icon fa-solid fa-file-pen"></i>&nbsp;
-                <span class="pc">2023-08-18 14:11:10</span>
+                <span class="pc">2023-08-19 00:16:04</span>
             </span>
         
 
         
             <span class="meta-info-item article-category border-box"><i class="icon fas fa-folder"></i>&nbsp;
                 <ul>
+                    
+                            <li class="category-item">
+                                
+                                <a href="/categories/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/">渗透测试</a>
+                            </li>
+                        
+                    
+                            <li class="category-item">
+                                
+                                    <span class="category-separator"><i class="icon fas fa-angle-right"></i></span>
+                                
+                                <a href="/categories/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/%E6%BC%8F%E6%B4%9E%E6%8C%96%E6%8E%98/">漏洞挖掘</a>
+                            </li>
+                        
                     
                 </ul>
             </span>
@@ -222,6 +236,9 @@
                 <i class="icon fas fa-tags"></i>&nbsp;
                 <ul>
                     
+                            <li class="tag-item"><span class="tag-separator"><i class="icon fas fa-hashtag"></i></span><a href="/tags/web%E6%B8%97%E9%80%8F/">web渗透</a></li>
+                        
+                    
                 </ul>
             </span>
         
@@ -229,7 +246,7 @@
         
         
             <span class="meta-info-item article-wordcount">
-                <i class="icon fas fa-file-word"></i>&nbsp;<span>241 字</span>
+                <i class="icon fas fa-file-word"></i>&nbsp;<span>335 字</span>
             </span>
         
         
@@ -255,87 +272,115 @@
             <div class="article-content keep-markdown-body">
                 
 
-                <h1 id="某小程未授权-支付逻辑漏洞"><a href="#某小程未授权-支付逻辑漏洞" class="headerlink" title="某小程未授权+支付逻辑漏洞"></a>某小程未授权+支付逻辑漏洞</h1><p>打开小程序主页 点击个人 抓包发现有id </p>
+                <h1 id="从sql注入到远程登录的简单利用"><a href="#从sql注入到远程登录的简单利用" class="headerlink" title="从sql注入到远程登录的简单利用"></a>从sql注入到远程登录的简单利用</h1><p>很近没写文章了，来水水文章。<br>请大家遵守网络安全法，切勿非法渗透。本文漏洞已报告给学校。</p>
+<p>最近收集了一些内网的资产，遇到一个有意思的系统，然后就随便搞了玩玩。比较简单，大佬勿喷。</p>
 <p><img  
                      lazyload
                      alt="image"
-                     data-src="https://blog-1254096303.cos.ap-chengdu.myqcloud.com/blog/image-20230525183223736.png"
-                      alt="image-20230525183223736"
+                     data-src="https://blog-1254096303.cos.ap-chengdu.myqcloud.com/2023/03/07/6406dd284d3d5.png"
+                      alt="1678171429754.png"
                 ></p>
+<p>首先来一手弱口令，提示用户密码错误，哦豁，没戏了，弱口令进不去，直接放弃。<br>开个玩笑，尝试一下闭合，发现报错，</p>
 <p><img  
                      lazyload
                      alt="image"
-                     data-src="https://blog-1254096303.cos.ap-chengdu.myqcloud.com/blog/image-20230525183641445.png"
-                      alt="image-20230525183641445"
-                > 点击余额 </p>
-<p>发现有id  发送repeater进行修改尝试</p>
-<p><img  
-                     lazyload
-                     alt="image"
-                     data-src="https://blog-1254096303.cos.ap-chengdu.myqcloud.com/blog/image-20230525183252969.png"
-                      alt="image-20230525183252969"
+                     data-src="https://blog-1254096303.cos.ap-chengdu.myqcloud.com/2023/03/07/6406dd5c6157a.png"
+                      alt="1678171482232.png"
                 ></p>
-<p>自己余额id为0 修改其他id</p>
+<p>发现报错，</p>
 <p><img  
                      lazyload
                      alt="image"
-                     data-src="https://blog-1254096303.cos.ap-chengdu.myqcloud.com/blog/image-20230525183304924.png"
-                      alt="image-20230525183304924"
+                     data-src="https://blog-1254096303.cos.ap-chengdu.myqcloud.com/2023/03/07/6406e139600b1.png"
+                      alt="1678172471978.png"
                 ></p>
-<p>成功返回余额，直接拼接浏览器访问，发现也可以拿到数据 </p>
+<p>接着我试了一下admin’– admin 万能密码，登录成功。</p>
 <p><img  
                      lazyload
                      alt="image"
-                     data-src="https://blog-1254096303.cos.ap-chengdu.myqcloud.com/blog/image-20230525183312292.png"
-                      alt="image-20230525183312292"
+                     data-src="https://blog-1254096303.cos.ap-chengdu.myqcloud.com/2023/03/07/6406e29a5e1ca.png"
+                      alt="1678172824898.png"
                 ></p>
-<p>修改di为1 发现也存在，为了验证存在，直接爆破后四位，1111-9999 发现可以完全遍历 </p>
+<p>成功进入系统那么可以肯定这里是有注入的，直接sqlmap一把梭哈，</p>
 <p><img  
                      lazyload
                      alt="image"
-                     data-src="https://blog-1254096303.cos.ap-chengdu.myqcloud.com/blog/image-20230525183319671.png"
-                      alt="image-20230525183319671"
+                     data-src="https://blog-1254096303.cos.ap-chengdu.myqcloud.com/2023/03/07/6406ddc0a4f54.png"
+                      alt="1678171583192.png"
                 ></p>
-<p>点击余额明细的时候，也可以抓包，可以看别人的</p>
+<p>发现是sqlserver ，直接–os-shell</p>
 <p><img  
                      lazyload
                      alt="image"
-                     data-src="https://blog-1254096303.cos.ap-chengdu.myqcloud.com/blog/image-20230525183330700.png"
-                      alt="image-20230525183330700"
+                     data-src="https://blog-1254096303.cos.ap-chengdu.myqcloud.com/2023/03/07/6406ddd1dc004.png"
+                      alt="1678171600213.png"
                 ></p>
+<p>然后web投递上线cs 上线提权 </p>
 <p><img  
                      lazyload
                      alt="image"
-                     data-src="https://blog-1254096303.cos.ap-chengdu.myqcloud.com/blog/image-20230525183344590.png"
-                      alt="image-20230525183344590"
+                     data-src="https://blog-1254096303.cos.ap-chengdu.myqcloud.com/2023/03/07/6406e1ba9fe6f.png"
+                      alt="1678172601321.png"
                 ></p>
-<p>经过测试，发现基本所有功能点都存在未授权 </p>
-<p>发现一个有意思的地方 他这连充值都是未授权的，也就是可以未授权用它一卡通余额里的钱给他充到小程序里面去，</p>
+<p>再利用插件获取明文密码 administrator  xxxxx</p>
+<p>然后登录 这里管理员改了一下登录的端口 	27020 </p>
 <p><img  
                      lazyload
                      alt="image"
-                     data-src="https://blog-1254096303.cos.ap-chengdu.myqcloud.com/blog/image-20230525183404426.png"
-                      alt="image-20230525183404426"
+                     data-src="https://blog-1254096303.cos.ap-chengdu.myqcloud.com/2023/03/07/6406e1e31e818.png"
+                      alt="1678172641748.png"
                 ></p>
+<p>登录成功。<br>但是想了想，没拿到密码，还想进一步，翻了下文件，看到备份文件</p>
 <p><img  
                      lazyload
                      alt="image"
-                     data-src="https://blog-1254096303.cos.ap-chengdu.myqcloud.com/blog/image-20230525183434771.png"
-                      alt="image-20230525183434771"
+                     data-src="https://blog-1254096303.cos.ap-chengdu.myqcloud.com/2023/03/07/6406de4a892f9.png"
+                      alt="1678171721118.png"
+                ><br><img  
+                     lazyload
+                     alt="image"
+                     data-src="https://blog-1254096303.cos.ap-chengdu.myqcloud.com/2023/03/07/6406de679ac64.png"
+                      alt="1678171750018.png"
+                ><br><img  
+                     lazyload
+                     alt="image"
+                     data-src="https://blog-1254096303.cos.ap-chengdu.myqcloud.com/2023/03/07/6406de6fe650a.png"
+                      alt="1678171758579.png"
                 ></p>
+<p>看到有密码，但是连接错误</p>
 <p><img  
                      lazyload
                      alt="image"
-                     data-src="https://blog-1254096303.cos.ap-chengdu.myqcloud.com/blog/image-20230525183442831.png"
-                      alt="image-20230525183442831"
+                     data-src="https://blog-1254096303.cos.ap-chengdu.myqcloud.com/2023/03/07/6406de799d08d.png"
+                      alt="1678171768470.png"
                 ></p>
-<p> 历史订单处 &#x2F;order&#x2F;list?company_id&#x3D;15&amp;page&#x3D;1&amp;openid&#x3D;oH0xd49hFv19wWTowa7NWRWU4Sl0&amp;member_id&#x3D;227295&amp;charge_status&#x3D;complete</p>
-<p>其他的几处就不详细展示了</p>
+<p>改用windows身份验证，可以直接登录</p>
 <p><img  
                      lazyload
                      alt="image"
-                     data-src="https://blog-1254096303.cos.ap-chengdu.myqcloud.com/blog/image-20230525184000557.png"
-                      alt="image-20230525184000557"
+                     data-src="https://blog-1254096303.cos.ap-chengdu.myqcloud.com/2023/03/07/6406de85d639f.png"
+                      alt="1678171780711.png"
+                ></p>
+<p>成功登录，然后选中刚刚的数据库，新建查询，</p>
+<p><img  
+                     lazyload
+                     alt="image"
+                     data-src="https://blog-1254096303.cos.ap-chengdu.myqcloud.com/2023/03/07/6406e34067d70.png"
+                      alt="1678172990897.png"
+                ></p>
+<p>密码md5加密过了，凭经验，可以知道，好几个密码是123456  </p>
+<p><img  
+                     lazyload
+                     alt="image"
+                     data-src="https://blog-1254096303.cos.ap-chengdu.myqcloud.com/2023/03/07/6406dea7f3314.png"
+                      alt="1678171814401.png"
+                ></p>
+<p>选择登录  登录成功</p>
+<p><img  
+                     lazyload
+                     alt="image"
+                     data-src="https://blog-1254096303.cos.ap-chengdu.myqcloud.com/2023/03/07/6406e24f4b9a3.png"
+                      alt="1678172749412.png"
                 ></p>
 
             </div>
@@ -346,16 +391,16 @@
 <div class="article-copyright-info-container">
     <ul class="copyright-info-content">
         <li class="post-title">
-            <span class="type">本文标题</span>：<span class="content">某小程未授权+支付逻辑漏洞</span>
+            <span class="type">本文标题</span>：<span class="content">从sql注入到远程登录的简单利用</span>
         </li>
         <li class="post-author">
             <span class="type">本文作者</span>：<span class="content">A_Snail</span>
         </li>
         <li class="post-time">
-            <span class="type">创建时间</span>：<span class="content">2023-08-18 13:50:05</span>
+            <span class="type">创建时间</span>：<span class="content">2023-06-01 21:17:10</span>
         </li>
         <li class="post-link">
-            <span class="type">本文链接</span>：<span class="content">2023/08/18/某小程未授权+支付逻辑漏洞/</span>
+            <span class="type">本文链接</span>：<span class="content">2023/06/01/从sql注入到远程登录的简单利用/</span>
         </li>
         <li class="post-license">
             <span class="type">版权声明</span>：<span class="content">本博客所有文章除特别声明外，均采用 <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> 许可协议。转载请注明出处！</span>
@@ -370,6 +415,14 @@
             
 
             
+                <ul class="post-tags-box">
+                    
+                        <li class="tag-item">
+                            <a href="/tags/web%E6%B8%97%E9%80%8F/"><i class="icon fas fa-hashtag"></i>web渗透</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            
 
             
                 <div class="article-nav">
@@ -377,13 +430,13 @@
                         <div class="article-prev">
                             <a class="prev"
                                rel="prev"
-                               href="/2023/08/18/%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB&amp;%E6%96%87%E4%BB%B6%E5%85%B6%E4%BB%96%E6%93%8D%E4%BD%9C&amp;RCE%E6%80%9D%E7%BB%B4%E5%AF%BC%E5%9B%BE/"
+                               href="/2023/08/01/%E6%9F%90%E6%AC%A1%E5%B8%82%E7%BA%A7hw%E6%80%BB%E7%BB%93/"
                             >
                             <span class="left arrow-icon flex-center">
                               <i class="fas fa-chevron-left"></i>
                             </span>
                                 <span class="title flex-center">
-                                <span class="post-nav-title-item text-ellipsis">文件包含&amp;文件其他操作&amp;RCE思维导图</span>
+                                <span class="post-nav-title-item text-ellipsis">某次市护总结</span>
                                 <span class="post-nav-item">上一篇</span>
                             </span>
                             </a>
@@ -393,10 +446,10 @@
                         <div class="article-next">
                             <a class="next"
                                rel="next"
-                               href="/2023/08/18/test/"
+                               href="/2023/05/01/%E6%9F%90%E5%B0%8F%E7%A8%8B%E6%9C%AA%E6%8E%88%E6%9D%83+%E6%94%AF%E4%BB%98%E9%80%BB%E8%BE%91%E6%BC%8F%E6%B4%9E/"
                             >
                             <span class="title flex-center">
-                                <span class="post-nav-title-item text-ellipsis">tst1</span>
+                                <span class="post-nav-title-item text-ellipsis">某小程未授权+支付逻辑漏洞</span>
                                 <span class="post-nav-item">下一篇</span>
                             </span>
                                 <span class="right arrow-icon flex-center">
@@ -475,7 +528,7 @@
             <div class="pc-post-toc right-toc">
                 <div class="post-toc-wrap">
     <div class="post-toc">
-        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%9F%90%E5%B0%8F%E7%A8%8B%E6%9C%AA%E6%8E%88%E6%9D%83-%E6%94%AF%E4%BB%98%E9%80%BB%E8%BE%91%E6%BC%8F%E6%B4%9E"><span class="nav-number">1.</span> <span class="nav-text">某小程未授权+支付逻辑漏洞</span></a></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BB%8Esql%E6%B3%A8%E5%85%A5%E5%88%B0%E8%BF%9C%E7%A8%8B%E7%99%BB%E5%BD%95%E7%9A%84%E7%AE%80%E5%8D%95%E5%88%A9%E7%94%A8"><span class="nav-number">1.</span> <span class="nav-text">从sql注入到远程登录的简单利用</span></a></li></ol>
     </div>
 </div>
 
@@ -677,7 +730,7 @@
             <div class="tablet-post-toc">
                 <div class="post-toc-wrap">
     <div class="post-toc">
-        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%9F%90%E5%B0%8F%E7%A8%8B%E6%9C%AA%E6%8E%88%E6%9D%83-%E6%94%AF%E4%BB%98%E9%80%BB%E8%BE%91%E6%BC%8F%E6%B4%9E"><span class="nav-number">1.</span> <span class="nav-text">某小程未授权+支付逻辑漏洞</span></a></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BB%8Esql%E6%B3%A8%E5%85%A5%E5%88%B0%E8%BF%9C%E7%A8%8B%E7%99%BB%E5%BD%95%E7%9A%84%E7%AE%80%E5%8D%95%E5%88%A9%E7%94%A8"><span class="nav-number">1.</span> <span class="nav-text">从sql注入到远程登录的简单利用</span></a></li></ol>
     </div>
 </div>
 
