@@ -27,7 +27,7 @@
     <script id="hexo-configurations">
     let KEEP = window.KEEP || {}
     KEEP.hexo_config = {"hostname":"example.com","root":"/","language":"zh-CN","path":"search.json"}
-    KEEP.theme_config = {"toc":{"enable":true,"number":true,"expand_all":false,"init_open":true,"layout":"right"},"style":{"primary_color":"#FF00CC","logo":"https://blog-1254096303.cos.ap-chengdu.myqcloud.com/blog/avatar.jpg","favicon":"https://blog-1254096303.cos.ap-chengdu.myqcloud.com/blog/avatar.jpg","avatar":"https://blog-1254096303.cos.ap-chengdu.myqcloud.com/blog/avatar.jpg","first_screen":{"enable":true,"header_transparent":true,"background_img":"/images/bg.svg","description":"人数南北多歧路，君向潇湘我向秦！|| 莫愁前路无知己，天下谁人不识君。","hitokoto":true},"scroll":{"progress_bar":true,"percent":true}},"local_search":{"enable":true,"preload":true},"code_block":{"tools":{"enable":true,"style":"mac"},"highlight_theme":"default"},"side_tools":{},"pjax":{"enable":true},"lazyload":{"enable":true},"comment":{"enable":false,"use":"gitalk","valine":{"appid":null,"appkey":null,"server_urls":null,"placeholder":null},"gitalk":{"github_id":"Asnail7","github_admins":"Asnail7","repository":"https://github.com/Asnail7/Asnail.github.io/issues","client_id":"20415fa727726ef72602","client_secret":"199d5aef24b06fddb944d3a17a13afe3b9def896","proxy":null},"twikoo":{"env_id":null,"region":null,"version":"1.6.8"},"waline":{"server_url":null,"reaction":false,"version":2},"giscus":{"repo":null,"repo_id":null,"category":"Announcements","category_id":null,"reactions_enabled":false}},"post":{"author_label":{"enable":true,"auto":true,"custom_label_list":["Trainee","Engineer","Architect"]},"word_count":{"wordcount":true,"min2read":true},"datetime_format":"YYYY-MM-DD HH:mm:ss","copyright_info":true},"website_count":{"busuanzi_count":{"enable":true,"site_uv":true,"site_pv":true,"page_pv":true}},"version":"3.7.3"}
+    KEEP.theme_config = {"toc":{"enable":true,"number":true,"expand_all":false,"init_open":true,"layout":"right"},"style":{"primary_color":"#FF00CC","logo":"https://blog-1254096303.cos.ap-chengdu.myqcloud.com/blog/avatar.jpg","favicon":"https://blog-1254096303.cos.ap-chengdu.myqcloud.com/blog/avatar.jpg","avatar":"https://blog-1254096303.cos.ap-chengdu.myqcloud.com/blog/avatar.jpg","first_screen":{"enable":true,"header_transparent":true,"background_img":"/images/bg.svg","description":"人数南北多歧路，君向潇湘我向秦！|| 莫愁前路无知己，天下谁人不识君。","hitokoto":true},"scroll":{"progress_bar":true,"percent":true}},"local_search":{"enable":true,"preload":true},"code_block":{"tools":{"enable":true,"style":"mac"},"highlight_theme":"default"},"side_tools":{},"pjax":{"enable":true},"lazyload":{"enable":true},"comment":{"enable":false,"use":"gitalk","valine":{"appid":null,"appkey":null,"server_urls":null,"placeholder":null},"gitalk":{"github_id":null,"github_admins":null,"repository":null,"client_id":null,"client_secret":null},"twikoo":{"env_id":null,"region":null,"version":"1.6.8"},"waline":{"server_url":null,"reaction":false,"version":2},"giscus":{"repo":null,"repo_id":null,"category":"Announcements","category_id":null,"reactions_enabled":false}},"post":{"author_label":{"enable":true,"auto":true,"custom_label_list":["Trainee","Engineer","Architect"]},"word_count":{"wordcount":true,"min2read":true},"datetime_format":"YYYY-MM-DD HH:mm:ss","copyright_info":true},"website_count":{"busuanzi_count":{"enable":true,"site_uv":true,"site_pv":true,"page_pv":true}},"version":"3.7.3"}
     KEEP.language_ago = {"second":"%s 秒前","minute":"%s 分钟前","hour":"%s 小时前","day":"%s 天前","week":"%s 周前","month":"%s 个月前","year":"%s 年前"}
     KEEP.language_code_block = {"copy":"复制代码","copied":"已复制","fold":"折叠代码块","folded":"已折叠"}
     KEEP.language_copy_copyright = {"copy":"复制版权信息","copied":"已复制","title":"原文标题","author":"原文作者","link":"原文链接"}
@@ -94,17 +94,33 @@
                     
                         <li class="menu-item">
                             <a class=""
-                               href="/about"
+                               href="/links"
                             >
-                                关于
+                                友链
                             </a>
                         </li>
                     
                         <li class="menu-item">
                             <a class=""
-                               href="/links"
+                               href="/categories"
                             >
-                                友链
+                                分类
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/tags"
+                            >
+                                标签
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/about"
+                            >
+                                关于
                             </a>
                         </li>
                     
@@ -141,12 +157,22 @@
             
                 <li class="drawer-menu-item flex-center">
                     <a class=""
-                       href="/about">关于</a>
+                       href="/links">友链</a>
                 </li>
             
                 <li class="drawer-menu-item flex-center">
                     <a class=""
-                       href="/links">友链</a>
+                       href="/categories">分类</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/tags">标签</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/about">关于</a>
                 </li>
             
         </ul>
@@ -205,7 +231,7 @@
 
             <span class="meta-info-item article-update-date">
                 <i class="icon fa-solid fa-file-pen"></i>&nbsp;
-                <span class="pc">2023-08-19 08:58:48</span>
+                <span class="pc">2023-08-19 10:48:47</span>
             </span>
         
 
@@ -237,6 +263,9 @@
                 <ul>
                     
                             <li class="tag-item"><span class="tag-separator"><i class="icon fas fa-hashtag"></i></span><a href="/tags/%E7%AC%94%E8%AE%B0/">笔记</a></li>
+                        
+                    
+                            <li class="tag-item"><span class="tag-separator"><i class="icon fas fa-hashtag"></i></span><a href="/tags/python/">python</a></li>
                         
                     
                 </ul>
@@ -400,6 +429,10 @@
                     
                         <li class="tag-item">
                             <a href="/tags/%E7%AC%94%E8%AE%B0/"><i class="icon fas fa-hashtag"></i>笔记</a>&nbsp;
+                        </li>
+                    
+                        <li class="tag-item">
+                            <a href="/tags/python/"><i class="icon fas fa-hashtag"></i>python</a>&nbsp;
                         </li>
                     
                 </ul>
