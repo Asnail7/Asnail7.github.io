@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2023-08-19T04:41:53.816Z</updated>
+  <updated>2023-08-21T03:15:09.353Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -15,6 +15,36 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>clash配置专属于自己的ip代理池</title>
+    <link href="http://example.com/2023/08/21/clash%E9%85%8D%E7%BD%AE%E4%B8%93%E5%B1%9E%E4%BA%8E%E8%87%AA%E5%B7%B1%E7%9A%84ip%E4%BB%A3%E7%90%86%E6%B1%A0/"/>
+    <id>http://example.com/2023/08/21/clash%E9%85%8D%E7%BD%AE%E4%B8%93%E5%B1%9E%E4%BA%8E%E8%87%AA%E5%B7%B1%E7%9A%84ip%E4%BB%A3%E7%90%86%E6%B1%A0/</id>
+    <published>2023-08-21T04:00:00.000Z</published>
+    <updated>2023-08-21T03:15:09.353Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="前提准备"><a href="#前提准备" class="headerlink" title="前提准备"></a>前提准备</h2><p>用clash配置代理池需要用到以下</p><ol><li><p>自己已经购买了订阅链接（没有的可以自行百度，这个自己摸索）</p></li><li><p>安装clash并且配置好订阅链接</p><p><img                       lazyload                     alt="image"                     data-src="https://blog-1254096303.cos.ap-chengdu.myqcloud.com/blog/image-20230821103845466.png"                      alt="image-20230821103845466"                ></p><h2 id="step-1-安装Service-Mode"><a href="#step-1-安装Service-Mode" class="headerlink" title="step 1 安装Service Mode"></a>step 1 安装Service Mode</h2><p>如果只是想要达到代理池的话，其实也不用安装也行，但是都用clash了，TUN模式不用的话，有点浪费是吧。</p><blockquote><p>简单来说，普通的模式情况下，有大多数软件是不走clash代理的。所以呢</p><p>对于不遵循系统代理的软件，TUN 模式可以接管其流量并交由 CFW 处理，在 Windows 中，TUN 模式性能比 TAP 模式好</p></blockquote><p><a class="link"   href="https://docs.cfw.lbyczf.com/contents/tun.html#windows" >https://docs.cfw.lbyczf.com/contents/tun.html#windows<i class="fas fa-external-link-alt"></i></a> 我建议多百度。我说的不清楚。</p><p>安装教程呢 链接也说了，反正就是你先得安装Service Mode 也就是服务模式，才能启用tun</p><h2 id="TUN-启动！"><a href="#TUN-启动！" class="headerlink" title="TUN 启动！"></a>TUN 启动！</h2><p><img                       lazyload                     alt="image"                     data-src="https://blog-1254096303.cos.ap-chengdu.myqcloud.com/blog/image-20230821104634464.png"                      alt="image-20230821104634464"                ></p></li></ol><p>这是不开tun的情况</p><p><img                       lazyload                     alt="image"                     data-src="https://blog-1254096303.cos.ap-chengdu.myqcloud.com/blog/image-20230821105034481.png"                      alt="image-20230821105034481"                ></p><p>浏览器能访问，但是bpsuit抓包的话，是提示还是真实ip</p><p>可是我又不想被发现，那第一种方法是我可以设置上游代理，但是我嫌麻烦，所以我采用第二种方式。</p><p>看到绿色球球，然后TUN mode 启动一下</p><p><img                       lazyload                     alt="image"                     data-src="https://blog-1254096303.cos.ap-chengdu.myqcloud.com/blog/image-20230821105155430.png"                      alt="image-20230821105155430"                ></p><p>现在burp不用上游代理也可以了</p><h2 id="峰回路转-负载均衡设置代理池"><a href="#峰回路转-负载均衡设置代理池" class="headerlink" title="峰回路转 负载均衡设置代理池"></a>峰回路转 负载均衡设置代理池</h2><p><a class="link"   href="https://stash.wiki/proxy-protocols/proxy-groups" >https://stash.wiki/proxy-protocols/proxy-groups<i class="fas fa-external-link-alt"></i></a> </p><blockquote><p>参考文章 </p></blockquote><p><img                       lazyload                     alt="image"                     data-src="https://blog-1254096303.cos.ap-chengdu.myqcloud.com/blog/image-20230821105333582.png"                      alt="image-20230821105333582"                ></p><p>一般买的机场都是有什么自动选择啥的，那么就好办了</p><p>不啰嗦 找到配置文件。</p><p><img                       lazyload                     alt="image"                     data-src="https://blog-1254096303.cos.ap-chengdu.myqcloud.com/blog/image-20230821105426500.png"                      alt="image-20230821105426500"                ></p><p>随便选一个 然后编辑<br>找到<code>proxy-groups</code></p><p><img                       lazyload                     alt="image"                     data-src="https://blog-1254096303.cos.ap-chengdu.myqcloud.com/blog/image-20230821105518802.png"                      alt="image-20230821105518802"                ></p><p>一般默认的这里是没有load-balance的 </p><p>然后我们随便复制一条结点多的规则 比如我这里选择的是自动选择</p><p>复制后给他改个名，然后type修改为<code>load-balance</code></p><p><img                       lazyload                     alt="image"                     data-src="https://blog-1254096303.cos.ap-chengdu.myqcloud.com/blog/image-20230821105914123.png"                      alt="image-20230821105914123"                ></p><p>然后拉到最后</p><p><img                       lazyload                     alt="image"                     data-src="https://blog-1254096303.cos.ap-chengdu.myqcloud.com/blog/image-20230821105952846.png"                      alt="image-20230821105952846"                ></p><p>这里如果用他推荐的默认的话，</p><p><img                       lazyload                     alt="image"                     data-src="https://blog-1254096303.cos.ap-chengdu.myqcloud.com/blog/image-20230821110059878.png"                      alt="image-20230821110059878"                ></p><p>不是我们想要的效果 </p><p>那么直接上</p><p><code>strategy: round-robin, interval: 5 </code></p><p>后面的是间隔，看你自己喜欢。</p><p><img                       lazyload                     alt="image"                     data-src="https://blog-1254096303.cos.ap-chengdu.myqcloud.com/blog/image-20230821110242687.png"                      alt="image-20230821110242687"                ></p><p>搞定</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h2 id=&quot;前提准备&quot;&gt;&lt;a href=&quot;#前提准备&quot; class=&quot;headerlink&quot; title=&quot;前提准备&quot;&gt;&lt;/a&gt;前提准备&lt;/h2&gt;&lt;p&gt;用clash配置代理池需要用到以下&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;自己已经购买了订阅链接（没有的可以自行百度，这个自己摸索</summary>
+      
+    
+    
+    
+    <category term="工具配置" scheme="http://example.com/categories/%E5%B7%A5%E5%85%B7%E9%85%8D%E7%BD%AE/"/>
+    
+    
+    <category term="代理" scheme="http://example.com/tags/%E4%BB%A3%E7%90%86/"/>
+    
+    <category term="clash" scheme="http://example.com/tags/clash/"/>
+    
+    <category term="工具配置" scheme="http://example.com/tags/%E5%B7%A5%E5%85%B7%E9%85%8D%E7%BD%AE/"/>
+    
+  </entry>
   
   <entry>
     <title></title>

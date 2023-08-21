@@ -9,7 +9,7 @@
     
     <title>
         
-            从sql注入到远程登录的简单利用 |
+            clash配置专属于自己的ip代理池 |
         
         A_Snail&#39;s Blog
     </title>
@@ -197,7 +197,7 @@
         <div class="article-content-container border-box">
 
             <div class="article-title">
-                <span class="title-hover-animation">从sql注入到远程登录的简单利用</span>
+                <span class="title-hover-animation">clash配置专属于自己的ip代理池</span>
             </div>
 
             
@@ -225,13 +225,13 @@
         
             <span class="meta-info-item article-create-date">
                 <i class="icon fa-solid fa-calendar-check"></i>&nbsp;
-                <span class="pc">2023-06-01 21:17:10</span>
-                <span class="mobile">2023-06-01 21:17</span>
+                <span class="pc">2023-08-21 12:00:00</span>
+                <span class="mobile">2023-08-21 12:00</span>
             </span>
 
             <span class="meta-info-item article-update-date">
                 <i class="icon fa-solid fa-file-pen"></i>&nbsp;
-                <span class="pc">2023-08-19 10:49:18</span>
+                <span class="pc">2023-08-21 11:15:09</span>
             </span>
         
 
@@ -241,15 +241,7 @@
                     
                             <li class="category-item">
                                 
-                                <a href="/categories/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/">渗透测试</a>
-                            </li>
-                        
-                    
-                            <li class="category-item">
-                                
-                                    <span class="category-separator"><i class="icon fas fa-angle-right"></i></span>
-                                
-                                <a href="/categories/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/%E6%BC%8F%E6%B4%9E%E6%8C%96%E6%8E%98/">漏洞挖掘</a>
+                                <a href="/categories/%E5%B7%A5%E5%85%B7%E9%85%8D%E7%BD%AE/">工具配置</a>
                             </li>
                         
                     
@@ -262,13 +254,13 @@
                 <i class="icon fas fa-tags"></i>&nbsp;
                 <ul>
                     
-                            <li class="tag-item"><span class="tag-separator"><i class="icon fas fa-hashtag"></i></span><a href="/tags/web%E6%B8%97%E9%80%8F/">web渗透</a></li>
+                            <li class="tag-item"><span class="tag-separator"><i class="icon fas fa-hashtag"></i></span><a href="/tags/%E4%BB%A3%E7%90%86/">代理</a></li>
                         
                     
-                            <li class="tag-item"><span class="tag-separator"><i class="icon fas fa-hashtag"></i></span><a href="/tags/SQL%E6%B3%A8%E5%85%A5/">SQL注入</a></li>
+                            <li class="tag-item"><span class="tag-separator"><i class="icon fas fa-hashtag"></i></span><a href="/tags/clash/">clash</a></li>
                         
                     
-                            <li class="tag-item"><span class="tag-separator"><i class="icon fas fa-hashtag"></i></span><a href="/tags/%E5%90%8E%E6%B8%97%E9%80%8F/">后渗透</a></li>
+                            <li class="tag-item"><span class="tag-separator"><i class="icon fas fa-hashtag"></i></span><a href="/tags/%E5%B7%A5%E5%85%B7%E9%85%8D%E7%BD%AE/">工具配置</a></li>
                         
                     
                 </ul>
@@ -278,7 +270,7 @@
         
         
             <span class="meta-info-item article-wordcount">
-                <i class="icon fas fa-file-word"></i>&nbsp;<span>335 字</span>
+                <i class="icon fas fa-file-word"></i>&nbsp;<span>503 字</span>
             </span>
         
         
@@ -304,116 +296,108 @@
             <div class="article-content keep-markdown-body">
                 
 
-                <h1 id="从sql注入到远程登录的简单利用"><a href="#从sql注入到远程登录的简单利用" class="headerlink" title="从sql注入到远程登录的简单利用"></a>从sql注入到远程登录的简单利用</h1><p>很近没写文章了，来水水文章。<br>请大家遵守网络安全法，切勿非法渗透。本文漏洞已报告给学校。</p>
-<p>最近收集了一些内网的资产，遇到一个有意思的系统，然后就随便搞了玩玩。比较简单，大佬勿喷。</p>
+                <h2 id="前提准备"><a href="#前提准备" class="headerlink" title="前提准备"></a>前提准备</h2><p>用clash配置代理池需要用到以下</p>
+<ol>
+<li><p>自己已经购买了订阅链接（没有的可以自行百度，这个自己摸索）</p>
+</li>
+<li><p>安装clash并且配置好订阅链接</p>
 <p><img  
                      lazyload
                      alt="image"
-                     data-src="https://blog-1254096303.cos.ap-chengdu.myqcloud.com/2023/03/07/6406dd284d3d5.png"
-                      alt="1678171429754.png"
+                     data-src="https://blog-1254096303.cos.ap-chengdu.myqcloud.com/blog/image-20230821103845466.png"
+                      alt="image-20230821103845466"
                 ></p>
-<p>首先来一手弱口令，提示用户密码错误，哦豁，没戏了，弱口令进不去，直接放弃。<br>开个玩笑，尝试一下闭合，发现报错，</p>
+<h2 id="step-1-安装Service-Mode"><a href="#step-1-安装Service-Mode" class="headerlink" title="step 1 安装Service Mode"></a>step 1 安装Service Mode</h2><p>如果只是想要达到代理池的话，其实也不用安装也行，但是都用clash了，TUN模式不用的话，有点浪费是吧。</p>
+<blockquote>
+<p>简单来说，普通的模式情况下，有大多数软件是不走clash代理的。所以呢</p>
+<p>对于不遵循系统代理的软件，TUN 模式可以接管其流量并交由 CFW 处理，在 Windows 中，TUN 模式性能比 TAP 模式好</p>
+</blockquote>
+<p><a class="link"   target="_blank" rel="noopener" href="https://docs.cfw.lbyczf.com/contents/tun.html#windows" >https://docs.cfw.lbyczf.com/contents/tun.html#windows<i class="fas fa-external-link-alt"></i></a> 我建议多百度。我说的不清楚。</p>
+<p>安装教程呢 链接也说了，反正就是你先得安装Service Mode 也就是服务模式，才能启用tun</p>
+<h2 id="TUN-启动！"><a href="#TUN-启动！" class="headerlink" title="TUN 启动！"></a>TUN 启动！</h2><p><img  
+                     lazyload
+                     alt="image"
+                     data-src="https://blog-1254096303.cos.ap-chengdu.myqcloud.com/blog/image-20230821104634464.png"
+                      alt="image-20230821104634464"
+                ></p>
+</li>
+</ol>
+<p>这是不开tun的情况</p>
 <p><img  
                      lazyload
                      alt="image"
-                     data-src="https://blog-1254096303.cos.ap-chengdu.myqcloud.com/2023/03/07/6406dd5c6157a.png"
-                      alt="1678171482232.png"
+                     data-src="https://blog-1254096303.cos.ap-chengdu.myqcloud.com/blog/image-20230821105034481.png"
+                      alt="image-20230821105034481"
                 ></p>
-<p>发现报错，</p>
+<p>浏览器能访问，但是bpsuit抓包的话，是提示还是真实ip</p>
+<p>可是我又不想被发现，那第一种方法是我可以设置上游代理，但是我嫌麻烦，所以我采用第二种方式。</p>
+<p>看到绿色球球，然后TUN mode 启动一下</p>
 <p><img  
                      lazyload
                      alt="image"
-                     data-src="https://blog-1254096303.cos.ap-chengdu.myqcloud.com/2023/03/07/6406e139600b1.png"
-                      alt="1678172471978.png"
+                     data-src="https://blog-1254096303.cos.ap-chengdu.myqcloud.com/blog/image-20230821105155430.png"
+                      alt="image-20230821105155430"
                 ></p>
-<p>接着我试了一下admin’– admin 万能密码，登录成功。</p>
+<p>现在burp不用上游代理也可以了</p>
+<h2 id="峰回路转-负载均衡设置代理池"><a href="#峰回路转-负载均衡设置代理池" class="headerlink" title="峰回路转 负载均衡设置代理池"></a>峰回路转 负载均衡设置代理池</h2><p><a class="link"   target="_blank" rel="noopener" href="https://stash.wiki/proxy-protocols/proxy-groups" >https://stash.wiki/proxy-protocols/proxy-groups<i class="fas fa-external-link-alt"></i></a> </p>
+<blockquote>
+<p>参考文章 </p>
+</blockquote>
 <p><img  
                      lazyload
                      alt="image"
-                     data-src="https://blog-1254096303.cos.ap-chengdu.myqcloud.com/2023/03/07/6406e29a5e1ca.png"
-                      alt="1678172824898.png"
+                     data-src="https://blog-1254096303.cos.ap-chengdu.myqcloud.com/blog/image-20230821105333582.png"
+                      alt="image-20230821105333582"
                 ></p>
-<p>成功进入系统那么可以肯定这里是有注入的，直接sqlmap一把梭哈，</p>
+<p>一般买的机场都是有什么自动选择啥的，那么就好办了</p>
+<p>不啰嗦 找到配置文件。</p>
 <p><img  
                      lazyload
                      alt="image"
-                     data-src="https://blog-1254096303.cos.ap-chengdu.myqcloud.com/2023/03/07/6406ddc0a4f54.png"
-                      alt="1678171583192.png"
+                     data-src="https://blog-1254096303.cos.ap-chengdu.myqcloud.com/blog/image-20230821105426500.png"
+                      alt="image-20230821105426500"
                 ></p>
-<p>发现是sqlserver ，直接–os-shell</p>
+<p>随便选一个 然后编辑<br>找到<code>proxy-groups</code></p>
 <p><img  
                      lazyload
                      alt="image"
-                     data-src="https://blog-1254096303.cos.ap-chengdu.myqcloud.com/2023/03/07/6406ddd1dc004.png"
-                      alt="1678171600213.png"
+                     data-src="https://blog-1254096303.cos.ap-chengdu.myqcloud.com/blog/image-20230821105518802.png"
+                      alt="image-20230821105518802"
                 ></p>
-<p>然后web投递上线cs 上线提权 </p>
+<p>一般默认的这里是没有load-balance的 </p>
+<p>然后我们随便复制一条结点多的规则 比如我这里选择的是自动选择</p>
+<p>复制后给他改个名，然后type修改为<code>load-balance</code></p>
 <p><img  
                      lazyload
                      alt="image"
-                     data-src="https://blog-1254096303.cos.ap-chengdu.myqcloud.com/2023/03/07/6406e1ba9fe6f.png"
-                      alt="1678172601321.png"
+                     data-src="https://blog-1254096303.cos.ap-chengdu.myqcloud.com/blog/image-20230821105914123.png"
+                      alt="image-20230821105914123"
                 ></p>
-<p>再利用插件获取明文密码 administrator  xxxxx</p>
-<p>然后登录 这里管理员改了一下登录的端口 	27020 </p>
+<p>然后拉到最后</p>
 <p><img  
                      lazyload
                      alt="image"
-                     data-src="https://blog-1254096303.cos.ap-chengdu.myqcloud.com/2023/03/07/6406e1e31e818.png"
-                      alt="1678172641748.png"
+                     data-src="https://blog-1254096303.cos.ap-chengdu.myqcloud.com/blog/image-20230821105952846.png"
+                      alt="image-20230821105952846"
                 ></p>
-<p>登录成功。<br>但是想了想，没拿到密码，还想进一步，翻了下文件，看到备份文件</p>
+<p>这里如果用他推荐的默认的话，</p>
 <p><img  
                      lazyload
                      alt="image"
-                     data-src="https://blog-1254096303.cos.ap-chengdu.myqcloud.com/2023/03/07/6406de4a892f9.png"
-                      alt="1678171721118.png"
-                ><br><img  
-                     lazyload
-                     alt="image"
-                     data-src="https://blog-1254096303.cos.ap-chengdu.myqcloud.com/2023/03/07/6406de679ac64.png"
-                      alt="1678171750018.png"
-                ><br><img  
-                     lazyload
-                     alt="image"
-                     data-src="https://blog-1254096303.cos.ap-chengdu.myqcloud.com/2023/03/07/6406de6fe650a.png"
-                      alt="1678171758579.png"
+                     data-src="https://blog-1254096303.cos.ap-chengdu.myqcloud.com/blog/image-20230821110059878.png"
+                      alt="image-20230821110059878"
                 ></p>
-<p>看到有密码，但是连接错误</p>
+<p>不是我们想要的效果 </p>
+<p>那么直接上</p>
+<p><code>strategy: round-robin, interval: 5 </code></p>
+<p>后面的是间隔，看你自己喜欢。</p>
 <p><img  
                      lazyload
                      alt="image"
-                     data-src="https://blog-1254096303.cos.ap-chengdu.myqcloud.com/2023/03/07/6406de799d08d.png"
-                      alt="1678171768470.png"
+                     data-src="https://blog-1254096303.cos.ap-chengdu.myqcloud.com/blog/image-20230821110242687.png"
+                      alt="image-20230821110242687"
                 ></p>
-<p>改用windows身份验证，可以直接登录</p>
-<p><img  
-                     lazyload
-                     alt="image"
-                     data-src="https://blog-1254096303.cos.ap-chengdu.myqcloud.com/2023/03/07/6406de85d639f.png"
-                      alt="1678171780711.png"
-                ></p>
-<p>成功登录，然后选中刚刚的数据库，新建查询，</p>
-<p><img  
-                     lazyload
-                     alt="image"
-                     data-src="https://blog-1254096303.cos.ap-chengdu.myqcloud.com/2023/03/07/6406e34067d70.png"
-                      alt="1678172990897.png"
-                ></p>
-<p>密码md5加密过了，凭经验，可以知道，好几个密码是123456  </p>
-<p><img  
-                     lazyload
-                     alt="image"
-                     data-src="https://blog-1254096303.cos.ap-chengdu.myqcloud.com/2023/03/07/6406dea7f3314.png"
-                      alt="1678171814401.png"
-                ></p>
-<p>选择登录  登录成功</p>
-<p><img  
-                     lazyload
-                     alt="image"
-                     data-src="https://blog-1254096303.cos.ap-chengdu.myqcloud.com/2023/03/07/6406e24f4b9a3.png"
-                      alt="1678172749412.png"
-                ></p>
+<p>搞定</p>
 
             </div>
 
@@ -423,16 +407,16 @@
 <div class="article-copyright-info-container">
     <ul class="copyright-info-content">
         <li class="post-title">
-            <span class="type">本文标题</span>：<span class="content">从sql注入到远程登录的简单利用</span>
+            <span class="type">本文标题</span>：<span class="content">clash配置专属于自己的ip代理池</span>
         </li>
         <li class="post-author">
             <span class="type">本文作者</span>：<span class="content">A_Snail</span>
         </li>
         <li class="post-time">
-            <span class="type">创建时间</span>：<span class="content">2023-06-01 21:17:10</span>
+            <span class="type">创建时间</span>：<span class="content">2023-08-21 12:00:00</span>
         </li>
         <li class="post-link">
-            <span class="type">本文链接</span>：<span class="content">2023/06/01/从sql注入到远程登录的简单利用/</span>
+            <span class="type">本文链接</span>：<span class="content">2023/08/21/clash配置专属于自己的ip代理池/</span>
         </li>
         <li class="post-license">
             <span class="type">版权声明</span>：<span class="content">本博客所有文章除特别声明外，均采用 <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> 许可协议。转载请注明出处！</span>
@@ -450,15 +434,15 @@
                 <ul class="post-tags-box">
                     
                         <li class="tag-item">
-                            <a href="/tags/web%E6%B8%97%E9%80%8F/"><i class="icon fas fa-hashtag"></i>web渗透</a>&nbsp;
+                            <a href="/tags/%E4%BB%A3%E7%90%86/"><i class="icon fas fa-hashtag"></i>代理</a>&nbsp;
                         </li>
                     
                         <li class="tag-item">
-                            <a href="/tags/SQL%E6%B3%A8%E5%85%A5/"><i class="icon fas fa-hashtag"></i>SQL注入</a>&nbsp;
+                            <a href="/tags/clash/"><i class="icon fas fa-hashtag"></i>clash</a>&nbsp;
                         </li>
                     
                         <li class="tag-item">
-                            <a href="/tags/%E5%90%8E%E6%B8%97%E9%80%8F/"><i class="icon fas fa-hashtag"></i>后渗透</a>&nbsp;
+                            <a href="/tags/%E5%B7%A5%E5%85%B7%E9%85%8D%E7%BD%AE/"><i class="icon fas fa-hashtag"></i>工具配置</a>&nbsp;
                         </li>
                     
                 </ul>
@@ -467,29 +451,14 @@
             
                 <div class="article-nav">
                     
-                        <div class="article-prev">
-                            <a class="prev"
-                               rel="prev"
-                               href="/2023/08/01/%E6%9F%90%E6%AC%A1%E5%B8%82%E7%BA%A7hw%E6%80%BB%E7%BB%93/"
-                            >
-                            <span class="left arrow-icon flex-center">
-                              <i class="fas fa-chevron-left"></i>
-                            </span>
-                                <span class="title flex-center">
-                                <span class="post-nav-title-item text-ellipsis">某次市护总结</span>
-                                <span class="post-nav-item">上一篇</span>
-                            </span>
-                            </a>
-                        </div>
-                    
                     
                         <div class="article-next">
                             <a class="next"
                                rel="next"
-                               href="/2023/06/01/%E8%AE%B0%E4%B8%80%E6%AC%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E6%94%AF%E4%BB%98%E9%80%BB%E8%BE%91%E6%BC%8F%E6%B4%9E%E6%B5%8B%E8%AF%95/"
+                               href="/2023/08/19/2023HW%20POC/"
                             >
                             <span class="title flex-center">
-                                <span class="post-nav-title-item text-ellipsis">记一次小程序支付逻辑漏洞测试</span>
+                                <span class="post-nav-title-item text-ellipsis"></span>
                                 <span class="post-nav-item">下一篇</span>
                             </span>
                                 <span class="right arrow-icon flex-center">
@@ -516,7 +485,7 @@
             <div class="pc-post-toc right-toc">
                 <div class="post-toc-wrap">
     <div class="post-toc">
-        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BB%8Esql%E6%B3%A8%E5%85%A5%E5%88%B0%E8%BF%9C%E7%A8%8B%E7%99%BB%E5%BD%95%E7%9A%84%E7%AE%80%E5%8D%95%E5%88%A9%E7%94%A8"><span class="nav-number">1.</span> <span class="nav-text">从sql注入到远程登录的简单利用</span></a></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E6%8F%90%E5%87%86%E5%A4%87"><span class="nav-number">1.</span> <span class="nav-text">前提准备</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#step-1-%E5%AE%89%E8%A3%85Service-Mode"><span class="nav-number">2.</span> <span class="nav-text">step 1 安装Service Mode</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TUN-%E5%90%AF%E5%8A%A8%EF%BC%81"><span class="nav-number">3.</span> <span class="nav-text">TUN 启动！</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B3%B0%E5%9B%9E%E8%B7%AF%E8%BD%AC-%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E8%AE%BE%E7%BD%AE%E4%BB%A3%E7%90%86%E6%B1%A0"><span class="nav-number">4.</span> <span class="nav-text">峰回路转 负载均衡设置代理池</span></a></li></ol>
     </div>
 </div>
 
@@ -709,7 +678,7 @@
             <div class="tablet-post-toc">
                 <div class="post-toc-wrap">
     <div class="post-toc">
-        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BB%8Esql%E6%B3%A8%E5%85%A5%E5%88%B0%E8%BF%9C%E7%A8%8B%E7%99%BB%E5%BD%95%E7%9A%84%E7%AE%80%E5%8D%95%E5%88%A9%E7%94%A8"><span class="nav-number">1.</span> <span class="nav-text">从sql注入到远程登录的简单利用</span></a></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E6%8F%90%E5%87%86%E5%A4%87"><span class="nav-number">1.</span> <span class="nav-text">前提准备</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#step-1-%E5%AE%89%E8%A3%85Service-Mode"><span class="nav-number">2.</span> <span class="nav-text">step 1 安装Service Mode</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TUN-%E5%90%AF%E5%8A%A8%EF%BC%81"><span class="nav-number">3.</span> <span class="nav-text">TUN 启动！</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B3%B0%E5%9B%9E%E8%B7%AF%E8%BD%AC-%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E8%AE%BE%E7%BD%AE%E4%BB%A3%E7%90%86%E6%B1%A0"><span class="nav-number">4.</span> <span class="nav-text">峰回路转 负载均衡设置代理池</span></a></li></ol>
     </div>
 </div>
 
