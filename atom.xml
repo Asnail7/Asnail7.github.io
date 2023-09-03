@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2023-08-21T03:16:32.475Z</updated>
+  <updated>2023-09-03T16:18:01.133Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -17,11 +17,44 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>粗浅的SRC技巧总结</title>
+    <link href="http://example.com/2023/09/04/%E7%B2%97%E6%B5%85%E7%9A%84SRC%E6%8A%80%E5%B7%A7%E6%80%BB%E7%BB%93/"/>
+    <id>http://example.com/2023/09/04/%E7%B2%97%E6%B5%85%E7%9A%84SRC%E6%8A%80%E5%B7%A7%E6%80%BB%E7%BB%93/</id>
+    <published>2023-09-03T16:11:00.000Z</published>
+    <updated>2023-09-03T16:18:01.133Z</updated>
+    
+    <content type="html"><![CDATA[<p><img                       lazyload                     alt="image"                     data-src="https://blog-1254096303.cos.ap-chengdu.myqcloud.com/blog/image-20230904001353735.png"                      alt="image-20230904001353735"                ></p><h2 id="信息收集"><a href="#信息收集" class="headerlink" title="信息收集"></a>信息收集</h2><h3 id="子域名"><a href="#子域名" class="headerlink" title="子域名"></a>子域名</h3><ul><li><p>Oneforall</p></li><li><p>在线收集</p><ul><li><p>微步在线</p></li><li><p>VT</p></li></ul></li><li><p>ARL灯塔</p></li><li><p>Shuize</p></li></ul><h3 id="目录扫描"><a href="#目录扫描" class="headerlink" title="目录扫描"></a>目录扫描</h3><ul><li><p>dirsearch</p></li><li><p>7kbs</p></li></ul><h3 id="端口探测"><a href="#端口探测" class="headerlink" title="端口探测"></a>端口探测</h3><ul><li><p>nmap</p></li><li><p>goby</p></li></ul><h3 id="JS敏感信息"><a href="#JS敏感信息" class="headerlink" title="JS敏感信息"></a>JS敏感信息</h3><ul><li><p>webpack fuzzer</p></li><li><p>jsfinder</p></li><li><p>Findsomething</p></li><li><p>burp插件 hae</p></li><li><p>yakit 自带规则</p></li></ul><h3 id="语法搜索"><a href="#语法搜索" class="headerlink" title="语法搜索"></a>语法搜索</h3><ul><li><p>Google hacking</p><ul><li>site intext file intitle inutl 等语法</li></ul></li><li><p>GitHub </p><ul><li>搜索敏感信息，例如ak sk 账号密码等</li></ul></li></ul><h3 id="空间搜索引擎"><a href="#空间搜索引擎" class="headerlink" title="空间搜索引擎"></a>空间搜索引擎</h3><ul><li><p>fofa</p></li><li><p>360quake</p></li><li><p>hunter</p></li></ul><h2 id="越权"><a href="#越权" class="headerlink" title="越权"></a>越权</h2><h3 id="用户类型"><a href="#用户类型" class="headerlink" title="用户类型"></a>用户类型</h3><ul><li><p>修改用户类型</p></li><li><p>越权查看信息</p></li></ul><h3 id="优惠券"><a href="#优惠券" class="headerlink" title="优惠券"></a>优惠券</h3><ul><li>领取隐藏优惠券</li></ul><h3 id="任意用户"><a href="#任意用户" class="headerlink" title="任意用户"></a>任意用户</h3><ul><li><p>任意用户登录</p></li><li><p>任意用户密码修改</p></li></ul><h3 id="个人信息"><a href="#个人信息" class="headerlink" title="个人信息"></a>个人信息</h3><ul><li><p>姓名</p></li><li><p>手机号码</p></li><li><p>身份证号</p></li><li><p>收货地址</p></li></ul><h3 id="订单号"><a href="#订单号" class="headerlink" title="订单号"></a>订单号</h3><ul><li><p>查看他人订单</p></li><li><p>订单详细信息</p></li></ul><h3 id="其他含有ID的参数"><a href="#其他含有ID的参数" class="headerlink" title="其他含有ID的参数"></a>其他含有ID的参数</h3><h2 id="并发"><a href="#并发" class="headerlink" title="并发"></a>并发</h2><h3 id="常见场景"><a href="#常见场景" class="headerlink" title="常见场景"></a>常见场景</h3><ul><li><p>验证码</p></li><li><p>抽奖</p></li><li><p>新人优惠</p></li><li><p>领取优惠券</p></li><li><p>提现</p></li><li><p>发票</p></li></ul><h3 id="短视频"><a href="#短视频" class="headerlink" title="短视频"></a>短视频</h3><ul><li><p>关注</p></li><li><p>取关</p></li><li><p>投票</p></li><li><p>评论</p></li><li><p>点赞</p></li></ul><h3 id="。。。。。。"><a href="#。。。。。。" class="headerlink" title="。。。。。。"></a>。。。。。。</h3>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;&lt;img  
+                     lazyload
+                     alt=&quot;image&quot;
+                     data-src=&quot;https://blog-1254096303.cos.ap-cheng</summary>
+      
+    
+    
+    
+    <category term="src技巧" scheme="http://example.com/categories/src%E6%8A%80%E5%B7%A7/"/>
+    
+    <category term="学习总结" scheme="http://example.com/categories/src%E6%8A%80%E5%B7%A7/%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/"/>
+    
+    
+    <category term="src技巧" scheme="http://example.com/tags/src%E6%8A%80%E5%B7%A7/"/>
+    
+    <category term="学习总结" scheme="http://example.com/tags/%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/"/>
+    
+    <category term="漏洞挖掘" scheme="http://example.com/tags/%E6%BC%8F%E6%B4%9E%E6%8C%96%E6%8E%98/"/>
+    
+  </entry>
+  
+  <entry>
     <title>clash配置专属于自己的ip代理池</title>
     <link href="http://example.com/2023/08/21/clash%E9%85%8D%E7%BD%AE%E4%B8%93%E5%B1%9E%E4%BA%8E%E8%87%AA%E5%B7%B1%E7%9A%84ip%E4%BB%A3%E7%90%86%E6%B1%A0/"/>
     <id>http://example.com/2023/08/21/clash%E9%85%8D%E7%BD%AE%E4%B8%93%E5%B1%9E%E4%BA%8E%E8%87%AA%E5%B7%B1%E7%9A%84ip%E4%BB%A3%E7%90%86%E6%B1%A0/</id>
     <published>2023-08-21T04:00:00.000Z</published>
-    <updated>2023-08-21T03:16:32.475Z</updated>
+    <updated>2023-09-03T16:15:47.826Z</updated>
     
     <content type="html"><![CDATA[<h2 id="前提准备"><a href="#前提准备" class="headerlink" title="前提准备"></a>前提准备</h2><p>用clash配置代理池需要用到以下</p><ol><li><p>自己已经购买了订阅链接（没有的可以自行百度，这个自己摸索）</p></li><li><p>安装clash并且配置好订阅链接</p><p><img                       lazyload                     alt="image"                     data-src="https://blog-1254096303.cos.ap-chengdu.myqcloud.com/blog/image-20230821103845466.png"                      alt="image-20230821103845466"                ></p><h2 id="step-1-安装Service-Mode"><a href="#step-1-安装Service-Mode" class="headerlink" title="step 1 安装Service Mode"></a>step 1 安装Service Mode</h2><p>如果只是想要达到代理池的话，其实也不用安装也行，但是都用clash了，TUN模式不用的话，有点浪费是吧。</p><blockquote><p>简单来说，普通的模式情况下，有大多数软件是不走clash代理的。所以呢</p><p>对于不遵循系统代理的软件，TUN 模式可以接管其流量并交由 CFW 处理，在 Windows 中，TUN 模式性能比 TAP 模式好</p></blockquote><p><a class="link"   href="https://docs.cfw.lbyczf.com/contents/tun.html#windows" >https://docs.cfw.lbyczf.com/contents/tun.html#windows<i class="fas fa-external-link-alt"></i></a> 我建议多百度。我说的不清楚。</p><p>安装教程呢 链接也说了，反正就是你先得安装Service Mode 也就是服务模式，才能启用tun</p><h2 id="TUN-启动！"><a href="#TUN-启动！" class="headerlink" title="TUN 启动！"></a>TUN 启动！</h2><p><img                       lazyload                     alt="image"                     data-src="https://blog-1254096303.cos.ap-chengdu.myqcloud.com/blog/image-20230821104634464.png"                      alt="image-20230821104634464"                ></p></li></ol><p>这是不开tun的情况</p><p><img                       lazyload                     alt="image"                     data-src="https://blog-1254096303.cos.ap-chengdu.myqcloud.com/blog/image-20230821105034481.png"                      alt="image-20230821105034481"                ></p><p>浏览器能访问，但是bpsuit抓包的话，是提示还是真实ip</p><p>可是我又不想被发现，那第一种方法是我可以设置上游代理，但是我嫌麻烦，所以我采用第二种方式。</p><p>看到绿色球球，然后TUN mode 启动一下</p><p><img                       lazyload                     alt="image"                     data-src="https://blog-1254096303.cos.ap-chengdu.myqcloud.com/blog/image-20230821105155430.png"                      alt="image-20230821105155430"                ></p><p>现在burp不用上游代理也可以了</p><h2 id="峰回路转-负载均衡设置代理池"><a href="#峰回路转-负载均衡设置代理池" class="headerlink" title="峰回路转 负载均衡设置代理池"></a>峰回路转 负载均衡设置代理池</h2><p><a class="link"   href="https://stash.wiki/proxy-protocols/proxy-groups" >https://stash.wiki/proxy-protocols/proxy-groups<i class="fas fa-external-link-alt"></i></a> </p><blockquote><p>参考文章 </p></blockquote><p><img                       lazyload                     alt="image"                     data-src="https://blog-1254096303.cos.ap-chengdu.myqcloud.com/blog/image-20230821105333582.png"                      alt="image-20230821105333582"                ></p><p>一般买的机场都是有什么自动选择啥的，那么就好办了</p><p>不啰嗦 找到配置文件。</p><p><img                       lazyload                     alt="image"                     data-src="https://blog-1254096303.cos.ap-chengdu.myqcloud.com/blog/image-20230821105426500.png"                      alt="image-20230821105426500"                ></p><p>随便选一个 然后编辑<br>找到<code>proxy-groups</code></p><p><img                       lazyload                     alt="image"                     data-src="https://blog-1254096303.cos.ap-chengdu.myqcloud.com/blog/image-20230821105518802.png"                      alt="image-20230821105518802"                ></p><p>一般默认的这里是没有load-balance的 </p><p>然后我们随便复制一条结点多的规则 比如我这里选择的是自动选择</p><p>复制后给他改个名，然后type修改为<code>load-balance</code></p><p><img                       lazyload                     alt="image"                     data-src="https://blog-1254096303.cos.ap-chengdu.myqcloud.com/blog/image-20230821105914123.png"                      alt="image-20230821105914123"                ></p><p>然后拉到最后</p><p><img                       lazyload                     alt="image"                     data-src="https://blog-1254096303.cos.ap-chengdu.myqcloud.com/blog/image-20230821105952846.png"                      alt="image-20230821105952846"                ></p><p>这里如果用他推荐的默认的话，</p><p><img                       lazyload                     alt="image"                     data-src="https://blog-1254096303.cos.ap-chengdu.myqcloud.com/blog/image-20230821110059878.png"                      alt="image-20230821110059878"                ></p><p>不是我们想要的效果 </p><p>那么直接上</p><p><code>strategy: round-robin, interval: 5 </code></p><p>后面的是间隔，看你自己喜欢。</p><p><img                       lazyload                     alt="image"                     data-src="https://blog-1254096303.cos.ap-chengdu.myqcloud.com/blog/image-20230821110242687.png"                      alt="image-20230821110242687"                ></p><p>搞定</p>]]></content>
     
