@@ -9,7 +9,7 @@
     
     <title>
         
-            某小程未授权+支付逻辑漏洞 |
+            关于某运营商校园云网的一些操作 |
         
         A_Snail&#39;s Blog
     </title>
@@ -197,7 +197,7 @@
         <div class="article-content-container border-box">
 
             <div class="article-title">
-                <span class="title-hover-animation">某小程未授权+支付逻辑漏洞</span>
+                <span class="title-hover-animation">关于某运营商校园云网的一些操作</span>
             </div>
 
             
@@ -225,13 +225,13 @@
         
             <span class="meta-info-item article-create-date">
                 <i class="icon fa-solid fa-calendar-check"></i>&nbsp;
-                <span class="pc">2023-05-01 21:17:10</span>
-                <span class="mobile">2023-05-01 21:17</span>
+                <span class="pc">2023-09-15 00:00:00</span>
+                <span class="mobile">2023-09-15 00:00</span>
             </span>
 
             <span class="meta-info-item article-update-date">
                 <i class="icon fa-solid fa-file-pen"></i>&nbsp;
-                <span class="pc">2023-08-19 00:16:40</span>
+                <span class="pc">2023-09-15 13:58:41</span>
             </span>
         
 
@@ -241,15 +241,7 @@
                     
                             <li class="category-item">
                                 
-                                <a href="/categories/%E6%BC%8F%E6%B4%9E%E6%8C%96%E6%8E%98/">漏洞挖掘</a>
-                            </li>
-                        
-                    
-                            <li class="category-item">
-                                
-                                    <span class="category-separator"><i class="icon fas fa-angle-right"></i></span>
-                                
-                                <a href="/categories/%E6%BC%8F%E6%B4%9E%E6%8C%96%E6%8E%98/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/">渗透测试</a>
+                                <a href="/categories/%E6%95%99%E7%A8%8B/">教程</a>
                             </li>
                         
                     
@@ -262,7 +254,7 @@
                 <i class="icon fas fa-tags"></i>&nbsp;
                 <ul>
                     
-                            <li class="tag-item"><span class="tag-separator"><i class="icon fas fa-hashtag"></i></span><a href="/tags/web%E6%B8%97%E9%80%8F/">web渗透</a></li>
+                            <li class="tag-item"><span class="tag-separator"><i class="icon fas fa-hashtag"></i></span><a href="/tags/%E6%9F%90%E4%BA%9B%E6%95%99%E7%A8%8B/">某些教程</a></li>
                         
                     
                 </ul>
@@ -272,12 +264,12 @@
         
         
             <span class="meta-info-item article-wordcount">
-                <i class="icon fas fa-file-word"></i>&nbsp;<span>241 字</span>
+                <i class="icon fas fa-file-word"></i>&nbsp;<span>1.5k 字</span>
             </span>
         
         
             <span class="meta-info-item article-min2read">
-                <i class="icon fas fa-clock"></i>&nbsp;<span>1 分钟</span>
+                <i class="icon fas fa-clock"></i>&nbsp;<span>5 分钟</span>
             </span>
         
         
@@ -298,88 +290,152 @@
             <div class="article-content keep-markdown-body">
                 
 
-                <h1 id="某小程未授权-支付逻辑漏洞"><a href="#某小程未授权-支付逻辑漏洞" class="headerlink" title="某小程未授权+支付逻辑漏洞"></a>某小程未授权+支付逻辑漏洞</h1><p>打开小程序主页 点击个人 抓包发现有id </p>
+                <h2 id="免责声明"><a href="#免责声明" class="headerlink" title="免责声明"></a>免责声明</h2><p>本文仅用于学习交流。切勿用于其他用途。</p>
+<p>传播、利用本文章所提供的信息而造成的任何直接或者间接的后果及损失，均由使用者本人负责，作者不为此承担任何责任，一旦造成后果请自行承担！如有侵权烦请告知，我们会立即删除并致歉。谢谢</p>
+<h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>对于xx运营商的一些操作大家肯定是觉得恶心，明明可以去抢，他还硬是要给你送张卡。</p>
+<p>写这个文章的目的是让不想一个宿舍一人办一张卡、爱折腾的同学提供一个思路。</p>
+<p>其实跳过认证的方法有很多，但是我们选择一劳永逸。</p>
+<h3 id="我能得到什么"><a href="#我能得到什么" class="headerlink" title="我能得到什么"></a>我能得到什么</h3><blockquote>
+<p>你能让你的云网当做宽带来使用，也就是一个宿舍办理一个就够了</p>
+<p>只是隔不久认证一次就行了。</p>
+<p>原理就是把路由器当做一台设备通过认证。</p>
+</blockquote>
+<h3 id="为什么我原来的宽带不让用"><a href="#为什么我原来的宽带不让用" class="headerlink" title="为什么我原来的宽带不让用"></a>为什么我原来的宽带不让用</h3><blockquote>
+<p>为了赚钱 </p>
+</blockquote>
+<p>怎么样才能让我的宽带能正常用。</p>
+<blockquote>
+<p>改后台操作。</p>
+</blockquote>
+<h2 id="准备操作"><a href="#准备操作" class="headerlink" title="准备操作"></a>准备操作</h2><ol>
+<li>首先你需要一个路由器</li>
+<li>其次你需要至少一根网线 （其实不要也行）</li>
+<li>再者你得有台电脑（其实手机也行，电脑更方便）</li>
+<li>你得有一双手 （有手就行 &lt;手动狗头&gt;)</li>
+</ol>
+<h3 id="step-1"><a href="#step-1" class="headerlink" title="step 1"></a>step 1</h3><p>那么准备完了后，需要干嘛</p>
+<p>当然是需要连接光猫了。这里有两种方式</p>
+<ol>
+<li>手机或者电脑连接光猫的wifi </li>
+<li>从光猫利用网线接入电脑</li>
+</ol>
+<h2 id="step-2-进入后台"><a href="#step-2-进入后台" class="headerlink" title="step 2 进入后台"></a>step 2 进入后台</h2><p>某信自带的光猫呢 默认管理后台是<code>192.168.100.1</code> 但是你会发现你直接访问访问不到，原因是啥<br>因为你需要改一下你本机的ip地址</p>
+<p>怎么改<br>打开网络设置<br>快捷键 <code>win + i</code> 打开 设置 找到网络<br><img  
+                     lazyload
+                     alt="image"
+                     data-src="https://blog-1254096303.cos.ap-chengdu.myqcloud.com/blog/20230915130911.png"
+                      alt="20230915130911"
+                ><br>找到后点击编辑<br>然后将ip地址修改为和光猫一个网段<br>学过计网的就不用我说了，肯定懂</p>
 <p><img  
                      lazyload
                      alt="image"
-                     data-src="https://blog-1254096303.cos.ap-chengdu.myqcloud.com/blog/image-20230525183223736.png"
-                      alt="image-20230525183223736"
+                     data-src="https://blog-1254096303.cos.ap-chengdu.myqcloud.com/blog/20230915131022.png"
+                      alt="20230915131022"
+                ><br>跟着改了就行了 ，参数我懒得介绍了，就是ip地址 不要设置为<code>192.168.100.1</code> 这个会和光猫冲突<br>手机和电脑一样的改法。<br>设置好后 点击保存就行了<br>然后你会发现你电脑会断网  别慌 稳住 </p>
+<p>然后此时你再打开cmd窗口看看自己ip是否改成功了<br>利用<code>ipconfig</code>查看自己的ip</p>
+<p><img  
+                     lazyload
+                     alt="image"
+                     data-src="https://blog-1254096303.cos.ap-chengdu.myqcloud.com/blog/20230915131452.png"
+                      alt="20230915131452"
                 ></p>
-<p><img  
+<p>浏览器 启动！<br><img  
                      lazyload
                      alt="image"
-                     data-src="https://blog-1254096303.cos.ap-chengdu.myqcloud.com/blog/image-20230525183641445.png"
-                      alt="image-20230525183641445"
-                > 点击余额 </p>
-<p>发现有id  发送repeater进行修改尝试</p>
-<p><img  
+                     data-src="https://blog-1254096303.cos.ap-chengdu.myqcloud.com/blog/7f4df53333d24c79987abb971e237cc2.png"
+                      alt="7f4df53333d24c79987abb971e237cc2"
+                ><br>成功访问<br>好了 关键时刻<br>账号密码这个大家就百度吧，我就不直接发了</p>
+<h2 id="step-3-进行修改"><a href="#step-3-进行修改" class="headerlink" title="step 3 进行修改"></a>step 3 进行修改</h2><p>好了 经过哒哒哒一顿操作，我们进了后台了<br><img  
                      lazyload
                      alt="image"
-                     data-src="https://blog-1254096303.cos.ap-chengdu.myqcloud.com/blog/image-20230525183252969.png"
-                      alt="image-20230525183252969"
+                     data-src="https://blog-1254096303.cos.ap-chengdu.myqcloud.com/blog/20230915131920.png"
+                      alt="20230915131920"
                 ></p>
-<p>自己余额id为0 修改其他id</p>
+<p>此时你已经成功50%了<br><img  
+                     lazyload
+                     alt="image"
+                     data-src="https://blog-1254096303.cos.ap-chengdu.myqcloud.com/blog/20230915132020.png"
+                      alt="20230915132020"
+                ><br> 打开wan配置<br> 你们会发现你们的光猫只有一个默认的 id为50的<br> 那我们怎么办<br> 一个个加呗</p>
+<p>不过这之前 ，你需要先开启一个东西<br><img  
+                     lazyload
+                     alt="image"
+                     data-src="https://blog-1254096303.cos.ap-chengdu.myqcloud.com/blog/20230915132158.png"
+                      alt="20230915132158"
+                ><br>再次返回</p>
+<p>只需要增加修改就行了<br>一共五个配置，跟着改就行了 很简单 其实</p>
+<p><code>INTERNET_R_VID_3900</code></p>
 <p><img  
                      lazyload
                      alt="image"
-                     data-src="https://blog-1254096303.cos.ap-chengdu.myqcloud.com/blog/image-20230525183304924.png"
-                      alt="image-20230525183304924"
+                     data-src="https://blog-1254096303.cos.ap-chengdu.myqcloud.com/blog/20230915132252.png"
+                      alt="20230915132252"
+                ><br>记得这个是路由WAN</p>
+<p><code>INTERNET_B_VID_41</code><br><img  
+                     lazyload
+                     alt="image"
+                     data-src="https://blog-1254096303.cos.ap-chengdu.myqcloud.com/blog/20230915132418.png"
+                      alt="20230915132418"
                 ></p>
-<p>成功返回余额，直接拼接浏览器访问，发现也可以拿到数据 </p>
+<p><code>INTERNET_B_VID_42</code><br><img  
+                     lazyload
+                     alt="image"
+                     data-src="https://blog-1254096303.cos.ap-chengdu.myqcloud.com/blog/20230915132449.png"
+                      alt="20230915132449"
+                ></p>
+<p><code>INTERNET_B_VID_43</code><br><img  
+                     lazyload
+                     alt="image"
+                     data-src="https://blog-1254096303.cos.ap-chengdu.myqcloud.com/blog/20230915132504.png"
+                      alt="20230915132504"
+                ></p>
+<p><code>INTERNET_B_VID_44</code><br><img  
+                     lazyload
+                     alt="image"
+                     data-src="https://blog-1254096303.cos.ap-chengdu.myqcloud.com/blog/20230915132519.png"
+                      alt="20230915132519"
+                ><br>上面这41-44 分别对应四个lan口</p>
+<p><code>INTERNET_B_VID_50</code></p>
 <p><img  
                      lazyload
                      alt="image"
-                     data-src="https://blog-1254096303.cos.ap-chengdu.myqcloud.com/blog/image-20230525183312292.png"
-                      alt="image-20230525183312292"
-                ></p>
-<p>修改di为1 发现也存在，为了验证存在，直接爆破后四位，1111-9999 发现可以完全遍历 </p>
+                     data-src="https://blog-1254096303.cos.ap-chengdu.myqcloud.com/blog/20230915132545.png"
+                      alt="20230915132545"
+                ><br>这个就是wifi的ssid了<br>改完了后 应该干嘛</p>
+<h2 id="step-4-峰回路转"><a href="#step-4-峰回路转" class="headerlink" title="step 4 峰回路转"></a>step 4 峰回路转</h2><p>当然是搞路由器了</p>
+<p>这时 将你的路由器用网线和光猫连接起来。<br>然后此时，大概率是不行的，你需要重置一下你的路由器，然后路由器后台修改获取ip方式为自动获取ip<br>重置后，再用网线或者连接路由器的wifi 进入管理后台 后台一般在路由器背面，账号和密码也在背面这个就不教了</p>
 <p><img  
                      lazyload
                      alt="image"
-                     data-src="https://blog-1254096303.cos.ap-chengdu.myqcloud.com/blog/image-20230525183319671.png"
-                      alt="image-20230525183319671"
+                     data-src="https://blog-1254096303.cos.ap-chengdu.myqcloud.com/blog/20230915132906.png"
+                      alt="20230915132906"
                 ></p>
-<p>点击余额明细的时候，也可以抓包，可以看别人的</p>
-<p><img  
+<p>进去后会让你设置wifi账号密码啥的，记得选那个自动获取ip，然后等重启，重启完后<br>重点来了</p>
+<blockquote>
+<p>利用你的手机，连接路由器你刚刚设置的那个wifi<br>然后，这时候 应该会提示你，要认证，此时认证一次，你就会发现，能够正常使用网络了。<br>然后呢，证明你成功了。<br>到此，你基本完成了100%了 </p>
+</blockquote>
+<p>搞完了当然要测个速了啊。<br><img  
                      lazyload
                      alt="image"
-                     data-src="https://blog-1254096303.cos.ap-chengdu.myqcloud.com/blog/image-20230525183330700.png"
-                      alt="image-20230525183330700"
-                ></p>
-<p><img  
+                     data-src="https://blog-1254096303.cos.ap-chengdu.myqcloud.com/blog/20230915133752.png"
+                      alt="20230915133752"
+                ><br><img  
                      lazyload
                      alt="image"
-                     data-src="https://blog-1254096303.cos.ap-chengdu.myqcloud.com/blog/image-20230525183344590.png"
-                      alt="image-20230525183344590"
-                ></p>
-<p>经过测试，发现基本所有功能点都存在未授权 </p>
-<p>发现一个有意思的地方 他这连充值都是未授权的，也就是可以未授权用它一卡通余额里的钱给他充到小程序里面去，</p>
-<p><img  
-                     lazyload
-                     alt="image"
-                     data-src="https://blog-1254096303.cos.ap-chengdu.myqcloud.com/blog/image-20230525183404426.png"
-                      alt="image-20230525183404426"
-                ></p>
-<p><img  
-                     lazyload
-                     alt="image"
-                     data-src="https://blog-1254096303.cos.ap-chengdu.myqcloud.com/blog/image-20230525183434771.png"
-                      alt="image-20230525183434771"
-                ></p>
-<p><img  
-                     lazyload
-                     alt="image"
-                     data-src="https://blog-1254096303.cos.ap-chengdu.myqcloud.com/blog/image-20230525183442831.png"
-                      alt="image-20230525183442831"
-                ></p>
-<p> 历史订单处 &#x2F;order&#x2F;list?company_id&#x3D;15&amp;page&#x3D;1&amp;openid&#x3D;oH0xd49hFv19wWTowa7NWRWU4Sl0&amp;member_id&#x3D;227295&amp;charge_status&#x3D;complete</p>
-<p>其他的几处就不详细展示了</p>
-<p><img  
-                     lazyload
-                     alt="image"
-                     data-src="https://blog-1254096303.cos.ap-chengdu.myqcloud.com/blog/image-20230525184000557.png"
-                      alt="image-20230525184000557"
-                ></p>
+                     data-src="https://blog-1254096303.cos.ap-chengdu.myqcloud.com/blog/4f129d7f2f44b71fc6bd2f45cc4cd26.jpg"
+                      alt="4f129d7f2f44b71fc6bd2f45cc4cd26"
+                ><br>基本能到八九百了，但是离他宣传的1000M还是有差距，而且我相信绝大多数同学云网wifi连接的速度也只有两三百<br>所以呢 这个算不算某运营商虚假宣传呢。</p>
+<p>然后就是可能你需要个路由器搞个定时重启，每周或者每几天重启一下，然后偶尔需要认证，认证后能正常使用了。。</p>
+<h2 id="疑难杂症"><a href="#疑难杂症" class="headerlink" title="疑难杂症"></a>疑难杂症</h2><p>针对可能会存在的问题 做了一个汇总</p>
+<ol>
+<li>修改后卡主认证，进不去，那么直接重置一下光猫，然后按照教程重新来一遍就可以了。</li>
+<li>我原来有宽带账号密码，不想用云网，只想用原来的宽带，怎么办， 重置路由器的时候，选择宽带连接，输入账号密码就行了。</li>
+</ol>
+<h2 id="我想说的"><a href="#我想说的" class="headerlink" title="我想说的"></a>我想说的</h2><blockquote>
+<p>本着想大家自己爱折腾就没必要多花钱去搞这个什么xxx了。所以将教程免费分享出来。希望大家低调使用<br>而且也不希望有人拿着这个去割大家的韭菜，让大家花钱，实在不会的可以，喝瓶水就可以了<br>其他的没必要。<br>当然 我这么做肯定也会触犯到某些办卡同学的利益，只能说 且用且珍惜。</p>
+</blockquote>
+<h2 id="再次免责声明"><a href="#再次免责声明" class="headerlink" title="再次免责声明"></a>再次免责声明</h2><p>本文仅用于学习交流。切勿用于其他用途。</p>
+<p>传播、利用本文章所提供的信息而造成的任何直接或者间接的后果及损失，均由使用者本人负责，作者不为此承担任何责任，一旦造成后果请自行承担！如有侵权烦请告知，我们会立即删除并致歉。谢谢</p>
 
             </div>
 
@@ -389,16 +445,16 @@
 <div class="article-copyright-info-container">
     <ul class="copyright-info-content">
         <li class="post-title">
-            <span class="type">本文标题</span>：<span class="content">某小程未授权+支付逻辑漏洞</span>
+            <span class="type">本文标题</span>：<span class="content">关于某运营商校园云网的一些操作</span>
         </li>
         <li class="post-author">
             <span class="type">本文作者</span>：<span class="content">A_Snail</span>
         </li>
         <li class="post-time">
-            <span class="type">创建时间</span>：<span class="content">2023-05-01 21:17:10</span>
+            <span class="type">创建时间</span>：<span class="content">2023-09-15 00:00:00</span>
         </li>
         <li class="post-link">
-            <span class="type">本文链接</span>：<span class="content">2023/05/01/某小程未授权+支付逻辑漏洞/</span>
+            <span class="type">本文链接</span>：<span class="content">2023/09/15/ywpj/</span>
         </li>
         <li class="post-license">
             <span class="type">版权声明</span>：<span class="content">本博客所有文章除特别声明外，均采用 <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> 许可协议。转载请注明出处！</span>
@@ -416,7 +472,7 @@
                 <ul class="post-tags-box">
                     
                         <li class="tag-item">
-                            <a href="/tags/web%E6%B8%97%E9%80%8F/"><i class="icon fas fa-hashtag"></i>web渗透</a>&nbsp;
+                            <a href="/tags/%E6%9F%90%E4%BA%9B%E6%95%99%E7%A8%8B/"><i class="icon fas fa-hashtag"></i>某些教程</a>&nbsp;
                         </li>
                     
                 </ul>
@@ -425,29 +481,14 @@
             
                 <div class="article-nav">
                     
-                        <div class="article-prev">
-                            <a class="prev"
-                               rel="prev"
-                               href="/2023/05/01/2022%E7%AC%AC%E4%BA%94%E7%A9%BA%E9%97%B4-web%E9%83%A8%E5%88%86wp%E5%A4%8D%E7%9B%98%E6%80%BB%E7%BB%93/"
-                            >
-                            <span class="left arrow-icon flex-center">
-                              <i class="fas fa-chevron-left"></i>
-                            </span>
-                                <span class="title flex-center">
-                                <span class="post-nav-title-item text-ellipsis">2022第五空间-web部分wp复盘总结</span>
-                                <span class="post-nav-item">上一篇</span>
-                            </span>
-                            </a>
-                        </div>
-                    
                     
                         <div class="article-next">
                             <a class="next"
                                rel="next"
-                               href="/2023/03/01/Python%E4%B8%ADargs%20kwargs%E5%8F%82%E6%95%B0%E7%9A%84%E4%B8%80%E4%BA%9B%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95/"
+                               href="/2023/09/04/%E7%B2%97%E6%B5%85%E7%9A%84SRC%E6%8A%80%E5%B7%A7%E6%80%BB%E7%BB%93/"
                             >
                             <span class="title flex-center">
-                                <span class="post-nav-title-item text-ellipsis">Python中args kwargs参数的一些使用方法</span>
+                                <span class="post-nav-title-item text-ellipsis">粗浅的SRC技巧总结</span>
                                 <span class="post-nav-item">下一篇</span>
                             </span>
                                 <span class="right arrow-icon flex-center">
@@ -474,7 +515,7 @@
             <div class="pc-post-toc right-toc">
                 <div class="post-toc-wrap">
     <div class="post-toc">
-        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%9F%90%E5%B0%8F%E7%A8%8B%E6%9C%AA%E6%8E%88%E6%9D%83-%E6%94%AF%E4%BB%98%E9%80%BB%E8%BE%91%E6%BC%8F%E6%B4%9E"><span class="nav-number">1.</span> <span class="nav-text">某小程未授权+支付逻辑漏洞</span></a></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%8D%E8%B4%A3%E5%A3%B0%E6%98%8E"><span class="nav-number">1.</span> <span class="nav-text">免责声明</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%8B%E7%BB%8D"><span class="nav-number">2.</span> <span class="nav-text">介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%88%91%E8%83%BD%E5%BE%97%E5%88%B0%E4%BB%80%E4%B9%88"><span class="nav-number">2.1.</span> <span class="nav-text">我能得到什么</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E6%88%91%E5%8E%9F%E6%9D%A5%E7%9A%84%E5%AE%BD%E5%B8%A6%E4%B8%8D%E8%AE%A9%E7%94%A8"><span class="nav-number">2.2.</span> <span class="nav-text">为什么我原来的宽带不让用</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%87%86%E5%A4%87%E6%93%8D%E4%BD%9C"><span class="nav-number">3.</span> <span class="nav-text">准备操作</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#step-1"><span class="nav-number">3.1.</span> <span class="nav-text">step 1</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#step-2-%E8%BF%9B%E5%85%A5%E5%90%8E%E5%8F%B0"><span class="nav-number">4.</span> <span class="nav-text">step 2 进入后台</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#step-3-%E8%BF%9B%E8%A1%8C%E4%BF%AE%E6%94%B9"><span class="nav-number">5.</span> <span class="nav-text">step 3 进行修改</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#step-4-%E5%B3%B0%E5%9B%9E%E8%B7%AF%E8%BD%AC"><span class="nav-number">6.</span> <span class="nav-text">step 4 峰回路转</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%96%91%E9%9A%BE%E6%9D%82%E7%97%87"><span class="nav-number">7.</span> <span class="nav-text">疑难杂症</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%88%91%E6%83%B3%E8%AF%B4%E7%9A%84"><span class="nav-number">8.</span> <span class="nav-text">我想说的</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%86%8D%E6%AC%A1%E5%85%8D%E8%B4%A3%E5%A3%B0%E6%98%8E"><span class="nav-number">9.</span> <span class="nav-text">再次免责声明</span></a></li></ol>
     </div>
 </div>
 
@@ -667,7 +708,7 @@
             <div class="tablet-post-toc">
                 <div class="post-toc-wrap">
     <div class="post-toc">
-        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%9F%90%E5%B0%8F%E7%A8%8B%E6%9C%AA%E6%8E%88%E6%9D%83-%E6%94%AF%E4%BB%98%E9%80%BB%E8%BE%91%E6%BC%8F%E6%B4%9E"><span class="nav-number">1.</span> <span class="nav-text">某小程未授权+支付逻辑漏洞</span></a></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%8D%E8%B4%A3%E5%A3%B0%E6%98%8E"><span class="nav-number">1.</span> <span class="nav-text">免责声明</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%8B%E7%BB%8D"><span class="nav-number">2.</span> <span class="nav-text">介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%88%91%E8%83%BD%E5%BE%97%E5%88%B0%E4%BB%80%E4%B9%88"><span class="nav-number">2.1.</span> <span class="nav-text">我能得到什么</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E6%88%91%E5%8E%9F%E6%9D%A5%E7%9A%84%E5%AE%BD%E5%B8%A6%E4%B8%8D%E8%AE%A9%E7%94%A8"><span class="nav-number">2.2.</span> <span class="nav-text">为什么我原来的宽带不让用</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%87%86%E5%A4%87%E6%93%8D%E4%BD%9C"><span class="nav-number">3.</span> <span class="nav-text">准备操作</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#step-1"><span class="nav-number">3.1.</span> <span class="nav-text">step 1</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#step-2-%E8%BF%9B%E5%85%A5%E5%90%8E%E5%8F%B0"><span class="nav-number">4.</span> <span class="nav-text">step 2 进入后台</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#step-3-%E8%BF%9B%E8%A1%8C%E4%BF%AE%E6%94%B9"><span class="nav-number">5.</span> <span class="nav-text">step 3 进行修改</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#step-4-%E5%B3%B0%E5%9B%9E%E8%B7%AF%E8%BD%AC"><span class="nav-number">6.</span> <span class="nav-text">step 4 峰回路转</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%96%91%E9%9A%BE%E6%9D%82%E7%97%87"><span class="nav-number">7.</span> <span class="nav-text">疑难杂症</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%88%91%E6%83%B3%E8%AF%B4%E7%9A%84"><span class="nav-number">8.</span> <span class="nav-text">我想说的</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%86%8D%E6%AC%A1%E5%85%8D%E8%B4%A3%E5%A3%B0%E6%98%8E"><span class="nav-number">9.</span> <span class="nav-text">再次免责声明</span></a></li></ol>
     </div>
 </div>
 
