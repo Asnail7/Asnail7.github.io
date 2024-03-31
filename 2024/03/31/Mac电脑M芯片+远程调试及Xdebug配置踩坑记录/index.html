@@ -1,0 +1,846 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="网络安全 渗透测试 漏洞挖掘 CNVD">
+    <meta name="description" content="A_Snail 的个人博客">
+    <meta name="author" content="A_Snail">
+    
+    <title>
+        
+            Mac电脑M芯片+远程调试及Xdebug配置踩坑记录 |
+        
+        A_Snail&#39;s Blog
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    
+        <link rel="shortcut icon" href="https://blog-1254096303.cos.ap-chengdu.myqcloud.com/blog/avatar.jpg">
+    
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.7.3/source/font/css/fontawesome.min.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.7.3/source/font/css/regular.min.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.7.3/source/font/css/solid.min.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.7.3/source/font/css/brands.min.css">
+    
+    <script id="hexo-configurations">
+    let KEEP = window.KEEP || {}
+    KEEP.hexo_config = {"hostname":"example.com","root":"/","language":"zh-CN","path":"search.json"}
+    KEEP.theme_config = {"toc":{"enable":true,"number":true,"expand_all":false,"init_open":true,"layout":"right"},"style":{"primary_color":"#FF00CC","logo":"https://blog-1254096303.cos.ap-chengdu.myqcloud.com/blog/avatar.jpg","favicon":"https://blog-1254096303.cos.ap-chengdu.myqcloud.com/blog/avatar.jpg","avatar":"https://blog-1254096303.cos.ap-chengdu.myqcloud.com/blog/avatar.jpg","first_screen":{"enable":true,"header_transparent":true,"background_img":"/images/bg.svg","description":"人数南北多歧路，君向潇湘我向秦！|| 莫愁前路无知己，天下谁人不识君。","hitokoto":true},"scroll":{"progress_bar":true,"percent":true}},"local_search":{"enable":true,"preload":true},"code_block":{"tools":{"enable":true,"style":"mac"},"highlight_theme":"default"},"side_tools":{},"pjax":{"enable":true},"lazyload":{"enable":true},"comment":{"enable":false,"use":"gitalk","valine":{"appid":null,"appkey":null,"server_urls":null,"placeholder":null},"gitalk":{"github_id":null,"github_admins":null,"repository":null,"client_id":null,"client_secret":null},"twikoo":{"env_id":null,"region":null,"version":"1.6.8"},"waline":{"server_url":null,"reaction":false,"version":2},"giscus":{"repo":null,"repo_id":null,"category":"Announcements","category_id":null,"reactions_enabled":false}},"post":{"author_label":{"enable":true,"auto":true,"custom_label_list":["Trainee","Engineer","Architect"]},"word_count":{"wordcount":true,"min2read":true},"datetime_format":"YYYY-MM-DD HH:mm:ss","copyright_info":true},"website_count":{"busuanzi_count":{"enable":true,"site_uv":true,"site_pv":true,"page_pv":true}},"version":"3.7.3"}
+    KEEP.language_ago = {"second":"%s 秒前","minute":"%s 分钟前","hour":"%s 小时前","day":"%s 天前","week":"%s 周前","month":"%s 个月前","year":"%s 年前"}
+    KEEP.language_code_block = {"copy":"复制代码","copied":"已复制","fold":"折叠代码块","folded":"已折叠"}
+    KEEP.language_copy_copyright = {"copy":"复制版权信息","copied":"已复制","title":"原文标题","author":"原文作者","link":"原文链接"}
+  </script>
+<meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="A_Snail's Blog" type="application/atom+xml">
+</head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+        <i class="pjax-progress-icon fas fa-circle-notch fa-spin"></i>
+    
+</div>
+
+
+<main class="page-container border-box">
+
+    <!-- home first screen  -->
+    
+
+    <!-- page content -->
+    <div class="page-main-content border-box">
+        <div class="page-main-content-top">
+            
+<header class="header-wrapper">
+
+    <div class="border-box header-content">
+        <div class="left border-box">
+            
+                <a class="logo-image border-box" href="/">
+                    <img src="https://blog-1254096303.cos.ap-chengdu.myqcloud.com/blog/avatar.jpg">
+                </a>
+            
+            <a class="site-name border-box" href="/">
+               A_Snail&#39;s Blog
+            </a>
+        </div>
+
+        <div class="right border-box">
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/"
+                            >
+                                首页
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/archives"
+                            >
+                                归档
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/links"
+                            >
+                                友链
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/categories"
+                            >
+                                分类
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/tags"
+                            >
+                                标签
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/about"
+                            >
+                                关于
+                            </a>
+                        </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="fas fa-search"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fas fa-search"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/">首页</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/archives">归档</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/links">友链</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/categories">分类</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/tags">标签</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/about">关于</a>
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle border-box">
+
+            <div class="main-content border-box">
+
+                
+
+                    <div class="fade-in-down-animation">
+    <div class="post-page-container border-box">
+
+        <div class="article-content-container border-box">
+
+            <div class="article-title">
+                <span class="title-hover-animation">Mac电脑M芯片+远程调试及Xdebug配置踩坑记录</span>
+            </div>
+
+            
+                <div class="article-header border-box">
+                    
+                        <div class="avatar-box border-box">
+                            <img src="https://blog-1254096303.cos.ap-chengdu.myqcloud.com/blog/avatar.jpg">
+                        </div>
+                    
+                    <div class="info-box">
+                        <div class="author">
+                            <span class="name">A_Snail</span>
+                            
+                                <span class="author-label">Lv3</span>
+                            
+                        </div>
+                        <div class="meta-info border-box">
+                            
+
+<div class="article-meta-info-container border-box post">
+    <div class="article-meta-info border-box">
+        
+
+
+        
+            <span class="meta-info-item article-create-date">
+                <i class="icon fa-solid fa-calendar-check"></i>&nbsp;
+                <span class="pc">2024-03-31 14:06:55</span>
+                <span class="mobile">2024-03-31 14:06</span>
+            </span>
+
+            <span class="meta-info-item article-update-date">
+                <i class="icon fa-solid fa-file-pen"></i>&nbsp;
+                <span class="pc">2024-03-31 14:09:34</span>
+            </span>
+        
+
+        
+            <span class="meta-info-item article-category border-box"><i class="icon fas fa-folder"></i>&nbsp;
+                <ul>
+                    
+                            <li class="category-item">
+                                
+                                <a href="/categories/%E4%BB%A3%E5%AE%A1/">代审</a>
+                            </li>
+                        
+                    
+                </ul>
+            </span>
+        
+
+        
+            <span class="article-tag meta-info-item border-box">
+                <i class="icon fas fa-tags"></i>&nbsp;
+                <ul>
+                    
+                            <li class="tag-item"><span class="tag-separator"><i class="icon fas fa-hashtag"></i></span><a href="/tags/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/">代码审计</a></li>
+                        
+                    
+                            <li class="tag-item"><span class="tag-separator"><i class="icon fas fa-hashtag"></i></span><a href="/tags/%E8%B8%A9%E5%9D%91%E8%AE%B0%E5%BD%95/">踩坑记录</a></li>
+                        
+                    
+                </ul>
+            </span>
+        
+
+        
+        
+            <span class="meta-info-item article-wordcount">
+                <i class="icon fas fa-file-word"></i>&nbsp;<span>1.6k 字</span>
+            </span>
+        
+        
+            <span class="meta-info-item article-min2read">
+                <i class="icon fas fa-clock"></i>&nbsp;<span>6 分钟</span>
+            </span>
+        
+        
+            <span class="meta-info-item article-pv">
+                <i class="icon fas fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+            </span>
+        
+    </div>
+
+    
+</div>
+
+                        </div>
+                    </div>
+                </div>
+            
+
+            <div class="article-content keep-markdown-body">
+                
+
+                <p>最近打算搞些php代码审计学习一下，但是遇到mac有不少问题，所以记录下踩坑。</p>
+<p>看了下网上的文章，基本都是本地多环境，但我不想在本地装那么多PHP，所以就搞了远程配置调试。</p>
+<p>为什么选择宝塔<br>一是主要是本机环境太多了的话 个人感觉会很烦，而且跟着网上文章折腾了半天也没成功，最终决定使用Ubuntu安装宝塔，主要是为了方便版本管理。 当然，也可以说是宝塔更无脑一点，能直接点点点。更适用于我这种脚本小子<br>二是，我本来是打算mac的phpstudy有问题的话，就用虚拟机搞就好了，但是理想很丰满，现实总是措手不及，因为小皮面板，并没有Arm架构的。 所以才想到还有一个宝塔。</p>
+<h2 id="踩坑记录"><a href="#踩坑记录" class="headerlink" title="踩坑记录"></a>踩坑记录</h2><ol>
+<li>跟着试了phpstudy，但是u1s1，phpstudy在mac上 是真的难用</li>
+<li>紧接着本地试了一下，折腾半天，指定版本各种出错。</li>
+</ol>
+<p>记住重点就是<br>phpize要使用你当前要安装xdebug的版本的对应版本的<br>还有就是 记得多折腾 👹👹</p>
+<h2 id="环境准备"><a href="#环境准备" class="headerlink" title="环境准备"></a>环境准备</h2><p>这里是以mac电脑M芯片+pd虚拟机<br>mac电脑需要安装好Phpstrom</p>
+<p>这里我用的ubuntu的虚拟机<br>虚拟机打开宝塔官网，然后找到Linux对应发行版，执行对应命令就行</p>
+<p><img  
+                     lazyload
+                     alt="image"
+                     data-src="https://blog-1254096303.cos.ap-chengdu.myqcloud.com/blog/image-20240330171224872.png"
+                     
+                ><br><a class="link"   target="_blank" rel="noopener" href="https://www.bt.cn/new/download.html" >https://www.bt.cn/new/download.html<i class="fas fa-external-link-alt"></i></a><br><img  
+                     lazyload
+                     alt="image"
+                     data-src="https://blog-1254096303.cos.ap-chengdu.myqcloud.com/blog/image-20240330171308952.png"
+                     
+                ><br>安装完成后，打开后台登录。<br><img  
+                     lazyload
+                     alt="image"
+                     data-src="https://blog-1254096303.cos.ap-chengdu.myqcloud.com/blog/image-20240330171405619.png"
+                     
+                ></p>
+<p>按照需求安装好对应中间件<br><img  
+                     lazyload
+                     alt="image"
+                     data-src="https://blog-1254096303.cos.ap-chengdu.myqcloud.com/blog/image-20240330171525907.png"
+                     
+                ></p>
+<p>这里选择nginx，后面有个问题，用1.24的Nginx好像有个报错，具体的细节忘记了，所以后面换了1.22。文章是后写的，所以没有图，手动贴图🤡</p>
+<p>Ok安装完毕后，开始xdebug的安装。</p>
+<h2 id="xdebug"><a href="#xdebug" class="headerlink" title="xdebug"></a>xdebug</h2><p>首先打开官网找到对应版本进行下载，如果不知道是哪个版本，可以本地输出phpinfo，然后复制源码到这个网站进行查询<br><a class="link"   target="_blank" rel="noopener" href="https://xdebug.org/wizard" >https://xdebug.org/wizard<i class="fas fa-external-link-alt"></i></a><br><img  
+                     lazyload
+                     alt="image"
+                     data-src="https://blog-1254096303.cos.ap-chengdu.myqcloud.com/blog/image-20240330171938996.png"
+                     
+                ><br>本地写入脚本展示phpinfo 查看源代码，然后复制进入上面的框内</p>
+<p><img  
+                     lazyload
+                     alt="image"
+                     data-src="https://blog-1254096303.cos.ap-chengdu.myqcloud.com/blog/image-20240330171924247.png"
+                     
+                ></p>
+<p><img  
+                     lazyload
+                     alt="image"
+                     data-src="https://blog-1254096303.cos.ap-chengdu.myqcloud.com/blog/image-20240330172229950.png"
+                     
+                ><br><img  
+                     lazyload
+                     alt="image"
+                     data-src="https://blog-1254096303.cos.ap-chengdu.myqcloud.com/blog/image-20240330173037908.png"
+                     
+                ></p>
+<p>这里可以看到，提示你需要phpize，所以这里牵扯到一个环境变量的问题，因为我们一般不可能只有一个php版本，而且每次切换也得修改系统变量，就会很麻烦。<br>你直接根据他这里的命令执行的执行，版本是系统环境变量里面的php版本的<br>这样会导致生成的xdebug也是对应版本的，和我们想要的不是同一个</p>
+<h2 id="下载源码-编译安装"><a href="#下载源码-编译安装" class="headerlink" title="下载源码-编译安装"></a>下载源码-编译安装</h2><p>OK 我们下载好源码后，进入源码的路径</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">获取xdebug的源码地址 之后进入文件夹用以下的命令编译</span><br><span class="line">cd xdebug3.1x</span><br><span class="line"></span><br><span class="line">phpize 这里需要找到</span><br><span class="line">./configure</span><br><span class="line">sudo make &amp;&amp; make install</span><br></pre></td></tr></table></figure>
+
+<p>这里找到我们安装的php版本的&#x2F;bin目录。找到对应的<br><img  
+                     lazyload
+                     alt="image"
+                     data-src="https://blog-1254096303.cos.ap-chengdu.myqcloud.com/blog/image-20240330172929440.png"
+                     
+                ></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">/www/server/php/73/bin/phpize </span><br><span class="line">这个才是我们需要的phpize，所以我们这里需要使用</span><br><span class="line">/www/server/php/73/bin/phpize ./configure --with-php-config=/www/server/php/73/bin/php-config</span><br></pre></td></tr></table></figure>
+<p>这里后面的路径可以不写，不写我们写入php.ini的时候，就要跟上xdebug.so的绝对路径，如果编译的时候写了就可以直接写 <code>zend_extension = xdebug</code> </p>
+<p>现在进入xdebug源码路径<br><img  
+                     lazyload
+                     alt="image"
+                     data-src="https://blog-1254096303.cos.ap-chengdu.myqcloud.com/blog/image-20240330173427048.png"
+                     
+                ></p>
+<p>执行</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/www/server/php/73/bin/phpize ./configure --with-php-config=/www/server/php/73/bin/php-config</span><br></pre></td></tr></table></figure>
+<p><img  
+                     lazyload
+                     alt="image"
+                     data-src="https://blog-1254096303.cos.ap-chengdu.myqcloud.com/blog/image-20240330173453924.png"
+                     
+                ></p>
+<p>等待编译完成 会在xdebug-3.1.6&#x2F;modules 路径下生成一个xdebug.so<br><img  
+                     lazyload
+                     alt="image"
+                     data-src="https://blog-1254096303.cos.ap-chengdu.myqcloud.com/blog/image-20240330173528814.png"
+                     
+                ></p>
+<p>然后我们根据刚刚xdebug界面的命令，直接给他复制到php扩展目录</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cp modules/xdebug.so /www/server/php/73/lib/php/extensions/no-debug-non-zts-20180731/</span><br></pre></td></tr></table></figure>
+
+<p>然后我们再到php版本下，修改php.ini，就编译完成了<br>php.ini 一般在对应版本的&#x2F;etc&#x2F;目录下<br><img  
+                     lazyload
+                     alt="image"
+                     data-src="https://blog-1254096303.cos.ap-chengdu.myqcloud.com/blog/image-20240330173736773.png"
+                     
+                ></p>
+<p>OK<br><img  
+                     lazyload
+                     alt="image"
+                     data-src="https://blog-1254096303.cos.ap-chengdu.myqcloud.com/blog/image-20240330173831841.png"
+                     
+                ><br>暂时只需要加这个其实就OK了，后面再根据报错一步步进行添加，但是太麻烦了，直接拿</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">[Xdebug]</span><br><span class="line">zend_extension=&quot;xdebug.so&quot;</span><br><span class="line">xdebug.mode=debug</span><br><span class="line">xdebug.start_with_request=trigger</span><br><span class="line">xdebug.client_host=&quot;10.211.55.2&quot;  </span><br><span class="line">;xdebug3.0中用于代替之前的xdebug.remote_connect_back=On，它会自动从$_SERVER[&#x27;HTTP_X_FORWARDED_FOR&#x27;]</span><br><span class="line">;或$_SERVER[&#x27;REMOTE_ADDR&#x27;]变量中获取ip，当然因为$_SERVER只有服务器模式有所以客户端模式是用不了的(可配置其它变量)</span><br><span class="line">;如果找不到ip它会回退(fallback)到xdebug.client_host指定的ip</span><br><span class="line">xdebug.discover_client_host=true</span><br><span class="line">xdebug.client_port=9003</span><br><span class="line">xdebug.start_with_request=yes</span><br><span class="line">xdebug.remote_handler=&quot;dbgp&quot;</span><br><span class="line">xdebug.log=/tmp/xdebug.log</span><br><span class="line">xdebug.log_level=7</span><br><span class="line">xdebug.idekey=PHPSTORM</span><br></pre></td></tr></table></figure>
+<p>xdebug.client_host&#x3D;”10.211.55.2”  这个ip 是你mac物理机的ip，而不是ubuntu虚拟机的ip 这个得记住。</p>
+<h2 id="验证是否开启xdbug"><a href="#验证是否开启xdbug" class="headerlink" title="验证是否开启xdbug"></a>验证是否开启xdbug</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">     xdebug_info();</span><br><span class="line">?&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>可以新建php，然后输入以上代码，然后打开对应页面<br><img  
+                     lazyload
+                     alt="image"
+                     data-src="https://blog-1254096303.cos.ap-chengdu.myqcloud.com/blog/image-20240330175726209.png"
+                     
+                ></p>
+<p>这里为enabled 即代表成功。</p>
+<h2 id="Phpstrom"><a href="#Phpstrom" class="headerlink" title="Phpstrom"></a>Phpstrom</h2><p>OK 现在就剩最后的一步了<br>在Phpstrom进行测试，是否能进行远程调试<br>远程调试还有一点是需要本地源码和远程源码路径需要映射，配置时候需要利用sftp，需要虚拟机的账号密码 这里建议加个root用户，因为有可能有的操作权限不够。</p>
+<p><img  
+                     lazyload
+                     alt="image"
+                     data-src="https://blog-1254096303.cos.ap-chengdu.myqcloud.com/blog/image-20240330174220524.png"
+                     
+                ></p>
+<p>打开设置，这里找到xdebug，把端口修改为9003，和php.ini中的要一致。<br><img  
+                     lazyload
+                     alt="image"
+                     data-src="https://blog-1254096303.cos.ap-chengdu.myqcloud.com/blog/image-20240330174322823.png"
+                     
+                ><br>接着找到上面的php<br><img  
+                     lazyload
+                     alt="image"
+                     data-src="https://blog-1254096303.cos.ap-chengdu.myqcloud.com/blog/image-20240330174448674.png"
+                     
+                ></p>
+<p><img  
+                     lazyload
+                     alt="image"
+                     data-src="https://blog-1254096303.cos.ap-chengdu.myqcloud.com/blog/image-20240330174603019.png"
+                     
+                ></p>
+<p><img  
+                     lazyload
+                     alt="image"
+                     data-src="https://blog-1254096303.cos.ap-chengdu.myqcloud.com/blog/image-20240330174624064.png"
+                     
+                ></p>
+<p>这样表示成功了<br><img  
+                     lazyload
+                     alt="image"
+                     data-src="https://blog-1254096303.cos.ap-chengdu.myqcloud.com/blog/image-20240330174731957.png"
+                     
+                ></p>
+<p>回到主页编辑配置<br><img  
+                     lazyload
+                     alt="image"
+                     data-src="https://blog-1254096303.cos.ap-chengdu.myqcloud.com/blog/image-20240330174754987.png"
+                     
+                ></p>
+<p><img  
+                     lazyload
+                     alt="image"
+                     data-src="https://blog-1254096303.cos.ap-chengdu.myqcloud.com/blog/image-20240330181215304.png"
+                     
+                ></p>
+<p>这里点击路径映射，然后本地和远程路径对上就行</p>
+<p>进行验证<br><img  
+                     lazyload
+                     alt="image"
+                     data-src="https://blog-1254096303.cos.ap-chengdu.myqcloud.com/blog/image-20240330174919658.png"
+                     
+                ></p>
+<p><img  
+                     lazyload
+                     alt="image"
+                     data-src="https://blog-1254096303.cos.ap-chengdu.myqcloud.com/blog/image-20240330174952250.png"
+                     
+                ></p>
+<p>这里前面忘记说了。根据实际情况选择后对应上即可。<br><img  
+                     lazyload
+                     alt="image"
+                     data-src="https://blog-1254096303.cos.ap-chengdu.myqcloud.com/blog/image-20240330175053586.png"
+                     
+                ></p>
+<p>OK 很纳闷是吧<br>重点来了，这里记得先开启监听，然后再点击验证</p>
+<p><img  
+                     lazyload
+                     alt="image"
+                     data-src="https://blog-1254096303.cos.ap-chengdu.myqcloud.com/blog/image-20240330175348261.png"
+                     
+                ></p>
+<p>然后再次验证<br><img  
+                     lazyload
+                     alt="image"
+                     data-src="https://blog-1254096303.cos.ap-chengdu.myqcloud.com/blog/image-20240330175415694.png"
+                     
+                ></p>
+<p>完美搞定。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>踩了蛮多坑吧，因为我这个人有强迫症，最开始想要简单点，想用phpstudy搞，下载完后发现 一言难尽，<br>然后想着用本机的，但是环境变量很烦，要么就是版本不同，要么就是报错，又懒得修改环境变量，本来就是觉得麻烦才不想搞的，所以又作罢。<br>然后偶然发现mac用pd的window虚拟机虽然架构不同，phpstudy也能跑，但是bug也很多，也作罢。<br>坑点很多。<br>反正就是Windows十分钟解决战斗，M系列的Mac就看你心情了。<br>最终得到结论： M系列的Mac会惩罚每一个不爱折腾的网安人。<br>也希望能帮助到有需求的师傅。</p>
+<p>参考文章<br><a class="link"   target="_blank" rel="noopener" href="https://blog.csdn.net/sun_weitao/article/details/132832939" >https://blog.csdn.net/sun_weitao/article/details/132832939<i class="fas fa-external-link-alt"></i></a><br><a class="link"   target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/417585043" >https://zhuanlan.zhihu.com/p/417585043<i class="fas fa-external-link-alt"></i></a> </p>
+
+            </div>
+
+            
+                <div class="post-copyright-info">
+                    
+<div class="article-copyright-info-container">
+    <ul class="copyright-info-content">
+        <li class="post-title">
+            <span class="type">本文标题</span>：<span class="content">Mac电脑M芯片+远程调试及Xdebug配置踩坑记录</span>
+        </li>
+        <li class="post-author">
+            <span class="type">本文作者</span>：<span class="content">A_Snail</span>
+        </li>
+        <li class="post-time">
+            <span class="type">创建时间</span>：<span class="content">2024-03-31 14:06:55</span>
+        </li>
+        <li class="post-link">
+            <span class="type">本文链接</span>：<span class="content">2024/03/31/Mac电脑M芯片+远程调试及Xdebug配置踩坑记录/</span>
+        </li>
+        <li class="post-license">
+            <span class="type">版权声明</span>：<span class="content">本博客所有文章除特别声明外，均采用 <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> 许可协议。转载请注明出处！</span>
+        </li>
+    </ul>
+    <div class="copy-copyright-info flex-center tooltip" data-content="复制版权信息" data-offset-y="-2px">
+        <i class="fa-solid fa-copy"></i>
+    </div>
+</div>
+
+                </div>
+            
+
+            
+                <ul class="post-tags-box">
+                    
+                        <li class="tag-item">
+                            <a href="/tags/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/"><i class="icon fas fa-hashtag"></i>代码审计</a>&nbsp;
+                        </li>
+                    
+                        <li class="tag-item">
+                            <a href="/tags/%E8%B8%A9%E5%9D%91%E8%AE%B0%E5%BD%95/"><i class="icon fas fa-hashtag"></i>踩坑记录</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            
+
+            
+                <div class="article-nav">
+                    
+                    
+                        <div class="article-next">
+                            <a class="next"
+                               rel="next"
+                               href="/2023/11/29/%E8%87%AA%E7%94%A8%E5%AE%9E%E7%94%A8%E6%B5%8F%E8%A7%88%E5%99%A8%E6%8F%92%E4%BB%B6%E6%8E%A8%E8%8D%90/"
+                            >
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item text-ellipsis">自用的浏览器插件推荐</span>
+                                <span class="post-nav-item">下一篇</span>
+                            </span>
+                                <span class="right arrow-icon flex-center">
+                              <i class="fas fa-chevron-right"></i>
+                            </span>
+                            </a>
+                        </div>
+                    
+                </div>
+            
+
+            
+                
+
+
+
+
+
+
+            
+        </div>
+
+        
+            <div class="pc-post-toc right-toc">
+                <div class="post-toc-wrap">
+    <div class="post-toc">
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%B8%A9%E5%9D%91%E8%AE%B0%E5%BD%95"><span class="nav-number">1.</span> <span class="nav-text">踩坑记录</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%8E%AF%E5%A2%83%E5%87%86%E5%A4%87"><span class="nav-number">2.</span> <span class="nav-text">环境准备</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#xdebug"><span class="nav-number">3.</span> <span class="nav-text">xdebug</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%8B%E8%BD%BD%E6%BA%90%E7%A0%81-%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85"><span class="nav-number">4.</span> <span class="nav-text">下载源码-编译安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%AA%8C%E8%AF%81%E6%98%AF%E5%90%A6%E5%BC%80%E5%90%AFxdbug"><span class="nav-number">5.</span> <span class="nav-text">验证是否开启xdbug</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Phpstrom"><span class="nav-number">6.</span> <span class="nav-text">Phpstrom</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">7.</span> <span class="nav-text">总结</span></a></li></ol>
+    </div>
+</div>
+
+            </div>
+        
+    </div>
+</div>
+
+
+                
+            </div>
+
+        </div>
+
+        <div class="page-main-content-bottom border-box">
+            
+<footer class="footer border-box">
+    <div class="border-box website-info-box default">
+        
+            <div class="copyright-info info-item default">
+                &copy;&nbsp;<span>2023</span>&nbsp;-&nbsp;2024
+                
+                    &nbsp;<i class="fas fa-heart icon-animate"></i>&nbsp;&nbsp;<a href="/">A_Snail</a>
+                
+            </div>
+
+            <div class="theme-info info-item default">
+                由&nbsp;<a target="_blank" href="https://hexo.io">Hexo</a>&nbsp;驱动&nbsp;|&nbsp;主题&nbsp;<a class="theme-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep v3.7.3</a>
+            </div>
+
+            
+
+            
+                <div class="deploy-info info-item default">
+                    
+                        本站由 <span class="tooltip" data-content="GitHub Pages"><img src="/images/deploy-provider/github.png"></span> 提供部署服务
+                        
+                </div>
+            
+        
+
+        <div class="count-item info-item default">
+            
+                <span class="count-box border-box word">
+                    <span class="item-type border-box">全站总字数</span>
+                    <span class="item-value border-box word">16.3k</span>
+                </span>
+            
+
+            
+                <span class="count-box border-box uv">
+                    <span class="item-type border-box">访问人数</span>
+                    <span class="item-value border-box uv" id="busuanzi_value_site_uv"></span>
+                </span>
+            
+
+            
+                <span class="count-box border-box pv">
+                    <span class="item-type border-box">总访问量</span>
+                    <span class="item-value border-box pv" id="busuanzi_value_site_pv"></span>
+                </span>
+            
+        </div>
+    </div>
+</footer>
+
+        </div>
+    </div>
+
+    <!-- post tools -->
+    
+        <div class="post-tools right-toc">
+            <div class="post-tools-container border-box">
+    <ul class="tools-list border-box">
+        <!-- PC TOC show toggle -->
+        
+            <li class="tools-item flex-center toggle-show-toc">
+                <i class="fas fa-list"></i>
+            </li>
+        
+
+        <!-- PC go comment -->
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <!-- side tools -->
+    <div class="side-tools">
+        <div class="side-tools-container">
+    <ul class="side-tools-list">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <li class="tools-item tool-dark-light-toggle flex-center">
+            <i class="fas fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+            <li class="tools-item rss flex-center">
+                <a class="flex-center"
+                   href="/atom.xml"
+                   target="_blank"
+                >
+                    <i class="fas fa-rss"></i>
+                </a>
+            </li>
+        
+
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list">
+        
+            <li class="tools-item toggle-show-toc-tablet flex-center">
+                <i class="fas fa-list"></i>
+            </li>
+        
+
+        
+
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+
+        
+            <li class="tools-item tool-scroll-to-top flex-center">
+                <i class="arrow-up fas fa-arrow-up"></i>
+                <span class="percent"></span>
+            </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    <!-- image mask -->
+    <div class="zoom-in-image-mask">
+    <img class="zoom-in-image">
+</div>
+
+
+    <!-- local search -->
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fas fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="搜索..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="close-popup-btn">
+                <i class="fas fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fas fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+    <!-- tablet toc -->
+    
+        <div class="tablet-post-toc-mask">
+            <div class="tablet-post-toc">
+                <div class="post-toc-wrap">
+    <div class="post-toc">
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%B8%A9%E5%9D%91%E8%AE%B0%E5%BD%95"><span class="nav-number">1.</span> <span class="nav-text">踩坑记录</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%8E%AF%E5%A2%83%E5%87%86%E5%A4%87"><span class="nav-number">2.</span> <span class="nav-text">环境准备</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#xdebug"><span class="nav-number">3.</span> <span class="nav-text">xdebug</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%8B%E8%BD%BD%E6%BA%90%E7%A0%81-%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85"><span class="nav-number">4.</span> <span class="nav-text">下载源码-编译安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%AA%8C%E8%AF%81%E6%98%AF%E5%90%A6%E5%BC%80%E5%90%AFxdbug"><span class="nav-number">5.</span> <span class="nav-text">验证是否开启xdbug</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Phpstrom"><span class="nav-number">6.</span> <span class="nav-text">Phpstrom</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">7.</span> <span class="nav-text">总结</span></a></li></ol>
+    </div>
+</div>
+
+            </div>
+        </div>
+    
+</main>
+
+
+
+<script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.7.3/source/js/utils.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.7.3/source/js/main.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.7.3/source/js/header-shrink.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.7.3/source/js/back2top.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.7.3/source/js/dark-light-toggle.js"></script>
+
+
+
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.7.3/source/js/local-search.js"></script>
+
+
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.7.3/source/js/code-block.js"></script>
+
+
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.7.3/source/js/lazyload.js"></script>
+
+
+<div class="post-scripts pjax">
+    
+        <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.7.3/source/js/post-helper.js"></script>
+        
+            <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.7.3/source/js/libs/anime.min.js"></script>
+        
+        
+            <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.7.3/source/js/toc.js"></script>
+        
+    
+    
+    
+</div>
+
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.7.3/source/js/libs/pjax.min.js"></script>
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        window.pjax = new Pjax({
+            selectors: [
+                'head title',
+                '.page-container',
+                '.pjax'
+            ],
+            history: true,
+            debug: false,
+            cacheBust: false,
+            timeout: 0,
+            analytics: false,
+            currentUrlFullReload: false,
+            scrollRestoration: false,
+            // scrollTo: true,
+        });
+
+        document.addEventListener('pjax:send', () => {
+            KEEP.utils.pjaxProgressBarStart();
+        });
+
+        document.addEventListener('pjax:complete', () => {
+            KEEP.utils.pjaxProgressBarEnd();
+            window.pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'));
+            KEEP.refresh();
+        });
+    });
+</script>
+
+
+
+
+</body>
+</html>
